@@ -1,0 +1,14 @@
+\section{State of the Art}
+Detection of finger and hand movements is a very complex and widespread subject. There is lots of research being done to match the movement of the fingers to different actions and commands for a machine.
+
+One device using IMUs is the \textsc{InerTouchHand}, developed in Portugal. It is capable to track finger movements by using eleven IMUs on each hand. They use relative positioning of the fingers to the back of the hands to match the finger and hand positions to predefined gestures of the Portuguese Sign Language \cite{inertouchhand}. One big difference to the product we are planning are the predefined gestures which the system is able to match to. Our approach is to learn the gestures by using tagged data. Doing so we might be able to learn gestures without knowing the exact movements beforehand.
+
+Another project is \textsc{cavallo-senshand-parkinsons}, which uses 4 IMUs, each of them with 9 degrees of freedom. In \cite{cavallo-senshand-parkinsons} they use SensHand to examine movements of people with Parkinson's disease.
+
+There are many more projects which use hand movements to interact with machines. Some using camrea tracking systems \cite{ellithorpe-kinect-typing}, flex sensors or EMGs \cite{imu-emg}.
+
+Our approach is to link the hardware side and the software side by using IMUs and a learning algorithm to not only learn movements the human eye can detect (like moving the little finger towards the delete button) but also learn about other movements (such as lifting the middlefinger while the little finger reaches for the delete button). With this approach we are hoping to find a way to get rid of the need for a constricting keyboard.
+
+We couldn't find another project that combines the use of IMUs and machine learning to replace a keyboard.
+Some projects use machine learning \cite{ellithorpe-kinect-typing}, using cameras instead of IMUs. Others are simulating a keyboard without the use of machine learning, using a top-down approach to map movements to predefined movements for specific characters.
+

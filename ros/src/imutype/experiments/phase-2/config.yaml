@@ -1,0 +1,26 @@
+imu_ids: [0, 1, 2, 3, 4, 5]
+key_codes: [20, 34, 48, 21, 35, 49, 22, 36, 50, 57] # TGBYHNUJM_
+training_ratio: 0.8
+learning_rate: 0.002
+epochs: 0
+output_threshold: 0.5
+sequence_length: 40
+sequence_ratio: 0.75
+cost_function: mse
+network_type: cnn2d
+n_hidden: 20
+batch_size: 0
+sampling_rate: 100
+sampling_mode: quat_accel
+convolution_filter_count: 50
+convolution_filter_size: [3, 3]
+convolution_iterations: 2
+convolution_dense_layer_units: [10]
+convolution_deep_filters: true
+
+base_imu_relative_average_rate: 0.2
+# this enables finger quaternions to be
+#   (relative to base) relative to its average
+# instead of
+#   (relative to base)
+finger_imu_relative_average_rate: 0.5

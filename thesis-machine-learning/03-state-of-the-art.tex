@@ -1,0 +1,37 @@
+\chapter{State of the Art}
+\chaplabel{state}
+In diesem Kapitel wird auf verwandte Projekte eingegangen. Vorgestellt werden sowohl Projekte, die eine ähnliche Hardware besitzen, als auch welche, bei denen ähnliche Lernmethoden verwendet werden.
+
+\section{Handschuh und maschinelles Lernen}
+
+In \citetitle{hand_data_glove} \citep{hand_data_glove} wurde ein Datenhandschuh benutzt, um bestimmte Gesten zu lernen und mit deren Hilfe mit einem Endgerät zu kommunizieren. Hierbei wurden unter anderem Gesten gelernt, welche Mausklicks simulieren, oder Rotationsbewegungen ausführen. Es wurde herausgefunden, dass das Nutzen dieses Datenhandschuhs genauer und für den Menschen natürlicher ist, als das Schreiben an einer Tastatur oder das Interagieren mithilfe einer Maus. Zudem ist die räumliche Einschränkung einer Tastatur mit dem Datenhandschuh nicht gegeben.
+
+
+In dem Projekt \citetitle{nasa-joystick-keyboard} \citep{nasa-joystick-keyboard} wurden zunächst 4 Gesten aufgezeichnet, welche Bewegungen in 4 Richtungen an einem Steuerknüppel darstellten. Hierfür wurden zunächst 4 trockene Elektroden verwendet, welche anhand von elektrischen Signalen die Muskelaktivitäten messen. Die Elektroden wurden in einen Stoffschlauch eingenäht, welcher um den Unterarm herum gelegt wurde. Diese Manschette war nur schwer an verschiedene Armtypen anzupassen, wodurch die aufgenommenen Daten groß qualitative Unterschiede aufwiesen.
+
+Die Daten wurden nach dem Aufzeichnen gefiltert und in einzelne Abschnitte geteilt, um einzelne Gesten zu separieren. Durch manuelle Selektion wurden unvollständige Gesten entfernt. Für die Gestenerkennung wurde für jede Geste ein eigenes \fremdwort{Hidden Markov Model} \citep[HMM;][]{hmm} verwendet. Die Ergebnisse waren stark tagesformabhängig und wurden unter Anderem von der Konzentration des Probanden und der richtigen Position der Elektroden beeinflusst.
+
+Nach dem Steuerknüppel wurden auch die Bewegungen beim Tippen auf einem Ziffernblock aufgezeichnet. Hierfür wurden Nass-Elektroden verwendet, unter Anderem, um besser die elektrischen Signale messen zu können und das Rauschen in den Daten zu verringern. Über mehrere Tage war es jedoch kaum möglich die Sensoren an den gleichen Stellen zu platzieren, was das Aufzeichnen und Anwenden an verschiedenen Tagen sehr erschwerte. Die verschiedenen Ziffern konnten mit einer Genauigkeit zwischen 70\% und 100\% erkannt, wobei die Ziffern, welche sich in der mittleren Zeile des Ziffernlocks befinden, tendenziell schlechter abschnitten.
+
+\productname{Gest}~\cite{web:gest} ist ein mit jeweils 5 IMUs\footnote{\fremdwort{inertial measurement unit}; ein mehrteiliger Sensor, der mithilfe eines Accelerometers, eines Gyroskops und eines Magnetometers die lineare Beschleunigung, Rotationsgeschwindigkeit und Orientierung eines Objektes misst} ausgestattetes, tragbares Gerät, das ähnlich wie unser Datenhandschuh aufgebaut ist.
+Mithilfe der IMUs soll es möglich sein, nicht nur eine Tastatur zu ersetzen, sondern auch durch verschiedene Gesten Programme wie zum Beispiel Musikprogramme zu bedienen oder  Drohnen zu steuern. Da es sich bei Gest um ein kommerzielles Produkt handelt, ist nicht bekannt, wie das Lernen der Bewegungen umgesetzt werden sollte. Das Projekt wurde leider vor der Fertigstellung eingestellt.
+
+Im Gegensatz dazu ist die \productname{InerTouchHand} \citep{inertouchhand} nicht für eine Tastatureingabe, sondern für Gestenerkennung ausgelegt. Es handelt sich hierbei um einen Sensorhandschuh, welcher Accelerometerdaten und vibro-taktile Stimulatoren verwendet, um \fremdwort{Human Machine Interaction}, also die Interaktion zwischen Menschen und Computern zu ermöglichen. Mithilfe des Handschuhs soll beispielsweise eine Roboterhand bewegt werden können.
+
+In ihrer vorherigen Arbeit \citep{pre_inertouchhand} erläutern die Autoren eine Vorgehensweise, mit welcher es möglich ist, Gesten ausschließlich anhand von den Daten eines Accelerometers zu erkennen.
+Hierbei sind Accelerometer an den Fingern und in der Handinnenfläche platziert, wobei die Daten der Finger relativ zu den Daten des Sensors in der Handinnenfläche berechnet werden. Es war damit zwar möglich bestimmte Gesten zu erkennen, Drehungen um die vertikale Achse konnten jedoch nicht erkannt werden.
+
+\section{Convolutional Neural Networks (CNNs)} %mit ML, nicht vorgegebene Gesten
+
+Obwohl CNNs bereits in den 90er-Jahren vorgestellt wurden \citep{handwritten_cnn}, hat sich das Interesse an ihnen erst in den letzten Jahren auch für komplexe Klassifizierungsprobleme entwickelt. \citet{visual_cnn} erklären dies durch die heutige Verfügbarkeit von deutlich größeren Traingsdatensätzen, die Möglichkeit der Nutzung von GPUs für das Lernen ebensolcher großen Datensätze und der verbesserten Regulierungsmethoden für die gelernten Modelle. Sie nennen hier das Beispiel der Dropout-Methode \citep{dropout}. Hierbei werden zufällige Daten entfernt, um Overfitting zu vermeiden.
+
+\section{Zeitreihen mit CNNs}
+
+Dass Convolutional Neural Networks für Bilderkennung sehr geeignet sind, ist relativ bekannt. Doch auch für andere Daten sind diese Netze geeignet.
+
+Es gibt bereits Projekte, in denen CNNs für das Klassifizieren von Zeitreihen verwendet werden. Besonders ähnlich zu unserer Problemstellung ist die \fremdwort{Human Activity Recognition} (HAR), etwa aus \citetitle{dense_labeling} \citep{dense_labeling}. Hier werden drei verschiedene Datensätze verwendet, in welchen Testpersonen unterschiedliche Aktivitäten des Alltags ausüben. Mithilfe diverser Sensoren\footnote{Im Opportunity-Datensatz \citep{opportunity} werden beispielsweise unter anderem Accelerometer, Gyroskope, Magnetometer, Mikrofone, Drucksensoren, Kameras, Thermometer auf der Haut und Belastungssensoren an der Kleidung der Testpersonen verwendet.} wurden dabei komplexe Datensätze erzeugt, die nun klassifiziert werden sollen. Zu den aufgezeichneten Aktivitäten zählen unter anderem Stehen und Sitzen oder das Zubereiten von Kaffee und Sandwiches. Das Ziel des Projektes ist es, mithilfe von CNNs die verschiedenen Aktivitäten zu erkennen. Im Gegensatz zu früheren Methoden ist das CNN dabei in der Lage, mehrere der komplexen Muster innerhalb eines Zeitabschnittes zu erkennen, und ohne sogenannte ,,sliding windows'' auszukommen. Dies ermöglicht eine feinere Körnung der Klassifikation.
+
+% Im Paper ist beschrieben, dass dieser Ansatz mit einem CNN auf den von ihnen genutzten Datensätzen eine Verbesserung um 11\%\footnote{gemessen am gewichteten F-Maß (\fremdwort{f-measure}, \fremdwort{f-score}) inklusive der Null-Klasse} im Vergleich zu anderen CNN-Methoden, zum Beispiel \citet{har_cnn}, darstellt. Zudem konnten sie eine enorme Zeiteinsparung beim Lernen erzielen\footnote{nur 20\% der Berechnungsdauer von \citet{har_cnn}}
+
+
+%Bei \texttt{sliding windows} handelt es sich um einen festen Abschnitt, in welchem die Daten angesehen werden, dieser Abschnitt bewegt sich immer weiter durch den gesammten Datensatz. Innerhalb des Abschnittes wird jeder Sample einer einzigen Klasse zugeordnet. Dies kann zu Datenverlust führen, wenn die Samples des Abschnittes in Wirklichkeit nicht nur einer, sondern mehreren Klassen zugehören\cite{dense_labeling}.\todo

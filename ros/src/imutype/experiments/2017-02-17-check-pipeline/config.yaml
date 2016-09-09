@@ -1,0 +1,24 @@
+bag_file: "/home/paul/uni/bachelor/data/bags/repeated-keys-35-49-hn.bag"
+
+imu_ids: [0, 1, 2, 3, 4, 5]
+key_codes: [35, 49] # n
+
+training_ratio: 0.8
+learning_rate: 0.002
+
+output_threshold: 0.5
+n_hidden: 20
+
+network_type: cnn2d
+cost_function: mse
+epochs: 0
+batch_size: 100
+sampling_rate: 25
+
+sequence_length: 32
+convolution_filter_count: 50
+convolution_filter_size: [3, 3]
+convolution_iterations: 2
+convolution_dense_layer_units: [10]
+
+sampling_mode: angles

@@ -1,0 +1,28 @@
+# General / sampling
+imu_ids: [0, 1, 2, 3, 4, 5]
+key_codes: [20, 34, 48, 21, 35, 49, 22, 36, 50, 57]
+
+# Sampling
+sequence_length: 16
+sequence_ratio: 0.5
+sampling_mode: quat
+sampling_rate: 25
+base_imu_relative_average_rate: 0.2
+
+# Learning / network
+epochs: 0
+batch_size: 0
+training_ratio: 0.8
+cost_function: mse
+network_type: cnn2d
+learning_rate: 0.002
+
+# RNN
+n_hidden: 20
+
+# CNN
+convolution_filter_count: 50
+convolution_filter_size: [3, 3]
+convolution_iterations: 2
+convolution_dense_layer_units: [10]
+convolution_deep_filters: true

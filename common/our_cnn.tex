@@ -1,0 +1,52 @@
+\begin{tikzpicture}[
+    node distance=5mm,
+    io/.style={
+        flowchart node,
+        minimum height=0.5cm,
+        text width=1cm,
+        minimum width=0cm,
+    },
+    arrow/.style={
+        flowchart arrow,
+    },
+    arrow/.style={
+        ->,
+        >=stealth',
+        shorten >=1pt,
+        auto,
+        semithick,
+    },
+    layer/.style={
+        draw,
+        minimum width=0.9cm,
+        minimum height=6cm,
+    },
+    bend angle=15,
+    every state/.style={
+        fill=white,
+        minimum size=3mm,
+        inner sep=0pt,
+        node distance=7mm,
+    },
+    steplabel/.style={
+        font=\scriptsize,
+        above,
+        rotate=90,
+        anchor=west,
+    },
+]
+    \node[io] (data) {1 @\\16 x 24};
+    \node[io, right=of data] (conv1)  {50  @\\$16 \times 24$};
+    \node[io, right=of conv1] (pool1) {50   @\\$8 \times 12$};
+    \node[io, right=of pool1] (conv2) {50 @\\$8 \times 12$};
+    \node[io, right=of conv2] (pool2) {50 @\\$4 \times 6$};
+    \node[io, right=of pool2] (hidden) {Hidden\\Layer};
+    \node[io, right=of hidden] (out) {Output\\Layer};
+
+    \draw [arrow] (data)   -- node[steplabel] {conv 1} (conv1);
+    \draw [arrow] (conv1)  -- node[steplabel] {pool 1} (pool1);
+    \draw [arrow] (pool1)  -- node[steplabel] {conv 2} (conv2);
+    \draw [arrow] (conv2)  -- node[steplabel] {pool 2} (pool2);
+    \draw [arrow] (pool2)  -- node[steplabel] {dense} (hidden);
+    \draw [arrow] (hidden) -- node[steplabel] {dense} (out);
+\end{tikzpicture}

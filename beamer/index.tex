@@ -1,0 +1,89 @@
+% rubber: setlist arguments --shell-escape
+
+\newif\iffinal\finaltrue
+\newif\ifnotes\notestrue
+% draft hides fancy stuff
+
+\pdfminorversion=4
+
+\documentclass[compress,t,usenames,dvipsnames]{beamer}
+\usetheme{Custom}
+
+\usepackage{keycommand}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{floatflt}
+\usepackage{colortbl}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{eurosym}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{siunitx}
+\usepackage{adjustbox}
+
+\usepackage[backend=biber,style=numeric,natbib=true]{biblatex}
+\addbibresource{../common/sources.bib}
+
+\usetikzlibrary{shapes,arrows,calc,decorations.markings,automata,matrix,intersections}
+
+% http://www.logicmatters.net/resources/pdfs/MathFonts.pdf
+\usepackage{kerkis} % Kerkis roman and sans
+\usepackage{kmath}
+
+\usepackage{pgfpages}
+
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+\ifnotes
+    \setbeamertemplate{note page}[plain]
+    \setbeameroption{show notes on second screen=right}
+    \AtBeginNote{\hspace*{-20pt}\addtolength\leftmargini{-20pt}}
+    \AtEndNote{\addtolength\leftmargini{20pt}}
+\fi
+
+\title{Prototype for a virtual keyboard based on IMUs and machine learning}
+\author{Paul Bienkowski \& Carolin Konietzny}
+\institute{TAMS, Fachbereich Informatik, Universität Hamburg}
+\date{2017-05-16}
+\setbeamerfont{note page}{size=\small}
+
+\input{../common/macros}
+\input{../common/keyboard}
+
+\begin{document}
+
+\tikzset{
+    onslide/.code args={<#1>#2}{% http://tex.stackexchange.com/a/6155/16595
+        \only<#1>{\pgfkeysalso{#2}}
+    },
+    flowchart node/.style={
+        rectangle,
+        rounded corners,
+        minimum width=3cm,
+        minimum height=0.8cm,
+        text width=3cm,
+        align=center,
+        draw=black,
+        fill=white,
+        thick,
+        font=\scriptsize,
+    },
+    flowchart arrow/.style={
+        thick,
+        ->,
+        >=stealth,
+    },
+}
+
+
+\input{content.tex}
+
+\end{document}
+

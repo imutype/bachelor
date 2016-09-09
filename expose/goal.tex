@@ -1,0 +1,23 @@
+\subsection{Goal}
+
+We want to create a new device that maps hand and finger movements to key
+presses -- just like a traditional keyboard, but without the bulky and
+restraining hardware that's currently required for keyboard input.
+
+To do so, we want to attach multiple movement sensors (inertial measurement
+units, IMUs\footnote{These usually combine multidimensional gyroscopes,
+accelerometers and magnetometers in one package, giving us access to the linear
+and angular acceleration as well as absolute orientation of the device.}) to
+different parts of the hand and record their outputs, including the
+corresponding keystrokes from an actual keyboard.
+
+We will then analyze the collected data to learn how hand movements translate
+into keystrokes. To do so, we will use a machine learning algorithm that can
+later be fed with live sensor data to replace the tranditional keyboard in
+generating the keystrokes.
+
+We believe a neural network is very suitable for this task, as it might be able
+to detect small differences in the way the user pushes different keys that are
+not predicable and specific for the actual user. Our goal is therefore not to
+create a universally applicable device, but learn one person's typing gestures
+with adequate accuracy to be usable as an input device.

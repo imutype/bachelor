@@ -1,0 +1,94 @@
+\frontmatter
+\newgeometry{centering,left=2cm,right=2cm,top=2cm,bottom=2cm}
+\begin{titlepage}
+\includegraphics[scale=0.3]{UHH-Logo_2010_Farbe_CMYK.pdf}
+\vspace*{2cm}
+\Large
+\begin{center}{\color{uhhred}\textbf{\so{BACHELORTHESIS}}}
+\vspace*{2.0cm}\\
+{\LARGE \textbf{Prototyp für eine virtuelle Tastatur basierend auf IMUs und maschinellem Lernen - Anwendung}}
+\vspace*{2.0cm}\\
+vorgelegt von
+\vspace*{0.4cm}\\
+Carolin Konietzny
+\end{center}
+
+\vspace*{3.9cm}
+
+\noindent
+MIN-Fakultät \vspace*{0.4cm} \\
+Fachbereich Informatik \vspace*{0.4cm} \\
+Arbeitsbereich Technische Aspekte Multimodaler Systeme \vspace*{0.4cm} \\
+Studiengang: Informatik \vspace*{0.4cm} \\
+Matrikelnummer: 6523939 \vspace*{0.8cm} \\
+Erstgutachter: Dr.~Norman Hendrich \vspace*{0.4cm} \\
+Zweitgutachter: Florens Wasserfall
+
+\end{titlepage}
+
+\restoregeometry{}
+
+\cleardoublepage
+\hspace{0pt}
+\vfill
+\begin{center}
+\begin{minipage}{0.7\textwidth}
+    \begin{center}
+        \textsc{Kurzbeschreibung}
+    \end{center}
+    \vspace{-2ex}
+    \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+    Das Projekt ,,Prototyp für eine virtuelle Tastatur basierend auf IMUs und maschinellem Lernen'' zielt darauf ab, ein System zu entwickeln, das als Alternative zu einer traditionellen Computertastatur Texteingaben aus den beim Tippen gemachten Bewegungen ermittelt. In dieser Arbeit wird ein Verfahren erläutert, aus den Bewegungsdaten von 6 IMUs, welche an den Fingern und der Rückseite einer Hand angebracht sind, die beim Tippen durchgeführten Tastenanschläge zu bestimmen. Hierzu werden die benötigten Vorverarbeitungsschritte vorgestellt und gezeigt, dass die ein \fremdwort{Convolutional Neural Network} für diese Aufgabe sehr geeignet ist. Bei langsamem Tippen von 10 verschiedenen Tasten konnte eine Genauigkeit von 85\% erreicht werden.
+\end{minipage}
+\\[2cm]
+    \begin{minipage}{0.7\textwidth}
+        \begin{center}
+            \textsc{Abstract}
+        \end{center}
+        \vspace{-2ex}
+        \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+        In the project ``Prototype for a virtual keyboard based on IMUs and machine learning'' a system was developed to deduce keyboard input from the movements made while typing, to be used as an alternative to a traditional computer keyboard. In this thesis an approach is presented to detect keystrokes from the movement data recorded by 6 IMUs attached to the fingers and the back of the hand. The required preprocessing of this data is discussed. It is shown that \fremdwort{convolutional neural networks} are suitable for the task at hand. During slow typing of 10 different keys an accuracy of 85\% was accomplished.
+und maschinellem Lernen''
+    \end{minipage}
+\end{center}
+\vfill
+\hspace{0pt}
+\pagebreak
+
+
+% \setcounter{tocdepth}{1}
+
+\chapter{Inhaltsverzeichnis}
+\makeatletter
+{
+\renewcommand{\baselinestretch}{0.75}\normalsize
+\@starttoc{toc}
+}
+\makeatother
+
+\cleardoublepage
+
+\chapter{Abkürzungsverzeichnis}
+\vspace{-1cm}
+{
+\renewcommand\arraystretch{1.5}
+\begin{tabularx}{\textwidth}{@{}>{\bfseries}rX@{}}
+    \toprule
+    3D & drei-dimensional\\
+    CNN & \fremdwort{convolutional neural network}, Faltungsnetzwerk\\
+    EEPROM &  \fremdwort{electrically erasable programmable read-only memory} (Speicherbaustein)\\
+    HAR & \fremdwort{human activity research} (Erkennung menschlicher Bewegungsabläufe und Aktivitäten durch Sensoren)\\
+    HMM & \fremdwort{Hidden Markov Model} (,,a tool for representing probability distributions over sequences of observations.''\footnote{\citep{hmm}, eigene Übersetzung: ,,ein Werkzeug zur Darstellung von Wahrscheinlichkeitsverteilungen über Sequenzen von Beobachtungen''})\\
+    IMU &\fremdwort{inertial measurement unit}, inertiale Messeinheit \\
+    KNN & \fremdwort{k nearest neighbours}, k-nächste-Nachbarn (Algorithmus) \emph{oder}\\
+        & künstliches neuronales Netz (vgl. NN) \\
+    ML & \fremdwort{machine learning}, maschinelles Lernen\\
+    MSE & \fremdwort{mean squared error}, mittlere quadratische Abweichung\\
+    NN & neuronales Netz (manchmal auch \fremdwort{nearest neighbor}, vgl. KNN) \\
+    RNN & \fremdwort{recurrent neural network}, rekurrentes neuronales Netz\\
+    ROS & \fremdwort{Robot Operating System}\\
+    UDP & \fremdwort{User Datagram Protocol} (ein Netzwerkprotokoll)\\
+    \bottomrule
+\end{tabularx}
+}
+\setcounter{table}{0}

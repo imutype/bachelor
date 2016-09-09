@@ -1,0 +1,19 @@
+\begin{tikzpicture}[
+    node distance=5mm,
+    node/.style={
+        flowchart node,
+        minimum width=2cm,
+        text width=2cm,
+    },
+]
+    \node[node]  (quat) at (0, 0) {Absolute Quaternionen};
+    \node[node, right=of quat] (rel) {Relativ zur Handbasis};
+    \node[node, right=of rel] (int) {Zeitschritt/\\Interpolation};
+    \node[node, right=of int] (samples) {Sampling};
+    \node[node, right=of samples,dashed] (angles) {Euler-Winkel visualisieren};
+
+    \draw[flowchart arrow] (quat) -- (rel);
+    \draw[flowchart arrow] (rel) -- (int);
+    \draw[flowchart arrow] (int) -- (samples);
+    \draw[flowchart arrow,dashed] (samples) -- (angles);
+\end{tikzpicture}

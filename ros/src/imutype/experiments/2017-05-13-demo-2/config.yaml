@@ -1,0 +1,5 @@
+imu_ids: [0, 1, 2, 3]
+key_codes: [105, 106]
+sampling_rate: 25
+convolution_deep_filters: true
+

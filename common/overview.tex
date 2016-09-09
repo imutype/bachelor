@@ -1,0 +1,167 @@
+\begin{tikzpicture}[
+    onslide/.code args={<#1>#2}{%
+        \ifdefined\only
+        \only<#1>{\pgfkeysalso{#2}}%
+        \else
+        #2
+        \fi
+    },
+    every node/.style={
+        font=\small,
+        inner sep=0pt,
+        thick,
+    },
+    node distance=2cm,
+    database/.style={
+        cylinder,
+        shape border rotate=90,
+        aspect=0.2,
+        draw,
+        minimum width=2.5cm,
+        text width=2.5cm,
+        align=center,
+        minimum height=1.5cm,
+    },
+    node/.style={
+        rectangle,
+        draw,
+        text width=2.5cm,
+        align=center,
+        minimum height=1cm,
+        rounded corners=2pt,
+    },
+    arrow/.style={
+        thick,
+        ->,
+        >=stealth,
+    },
+    learning/.style={
+        dashed,
+    },
+    applying/.style={
+        very thick,
+    },
+    radiation/.style={
+        decorate,
+        decoration={expanding waves,angle=10,segment length=4pt}
+    },
+    wire/.style={
+        % draw=gray,
+    },
+    sensor/.style={
+        node,
+        minimum width=5mm,
+        minimum height=5mm,
+        text width=0,
+        draw,
+        rectangle,
+        rounded corners=0,
+    },
+    highlight/.style={
+        draw=primary,
+        color=primary,
+        fill=primary!10!white,
+    },
+    drawhighlight/.style={
+        thick,
+        draw=primary,
+    },
+    texthighlight/.style={
+        color=primary,
+    },
+]
+
+    \coordinate (legend) at (6.5, 0.2);
+    \draw[thick,wire]           ($ (legend) + (0,    0) $) -- node[at end, right, xshift=0.2cm] {Wire}  ++(0.5, 0);
+    \draw[thick,arrow,learning] ($ (legend) + (0, -0.6) $) -- node[at end, right, xshift=0.2cm] {Learn} ++(0.5, 0);
+    \draw[thick,arrow,applying] ($ (legend) + (0, -1.2) $) -- node[at end, right, xshift=0.2cm] {Apply} ++(0.5, 0);
+    \draw ($ (legend) + (-0.2, 0.3) $) rectangle ++(2, -1.8);
+
+    \node[node]
+        (serialparser)
+        at (0, 0)
+        {Serial Parser};
+
+    \node[node,left=2cm of serialparser]
+        (sender)
+        {Micro-\\processor};
+
+    \node[sensor,below left=7mm and 0.5cm of sender.south]  (sensor1) {};
+    \node[sensor,below=2mm of sensor1] (sensor2) {};
+    \node[sensor,below=2mm of sensor2] (sensor3) {};
+    \node[sensor,below right=7mm and 0.5cm of sender.south] (sensor4) {};
+    \node[sensor,below=2mm of sensor4] (sensor5) {};
+    \node[sensor,below=2mm of sensor5] (sensor6) {};
+
+    \node[below=3cm of sender] {Sensors};
+    \draw[wire,onslide={<2> drawhighlight}] (sensor1) -| ($ (sender.south) + (-0.2, 0) $);
+    \draw[wire,onslide={<2> drawhighlight}] (sensor2) -| ($ (sender.south) + (-0.12, 0) $);
+    \draw[wire,onslide={<2> drawhighlight}] (sensor3) -| ($ (sender.south) + (-0.04, 0) $);
+    \draw[wire,onslide={<2> drawhighlight}] (sensor4) -| ($ (sender.south) + (0.2, 0) $);
+    \draw[wire,onslide={<2> drawhighlight}] (sensor5) -| ($ (sender.south) + (0.12, 0) $);
+    \draw[wire,onslide={<2> drawhighlight}] (sensor6) -| ($ (sender.south) + (0.04, 0) $);
+
+    \draw[radiation,onslide={<3> drawhighlight}]
+        ([xshift=2mm,yshift=-0.3cm]sender.east) -- node[midway,yshift=-0.6cm,onslide={<3> texthighlight}] {or WiFi} ([xshift=-2mm,yshift=-0.3cm]serialparser.west);
+
+    \draw[very thick,wire,onslide={<3> drawhighlight}]
+        ([yshift=0.2cm]sender.east) -- node[midway,yshift=0.3cm,onslide={<3> texthighlight}] {USB} ([yshift=0.2cm]serialparser.west);
+
+    \node[node,right=1cm of serialparser]
+        (keyboard)
+        {Keyboard\\Listener};
+
+    \node[database]
+        (bag)
+        at ($ (serialparser) + (1.75, -2) $)
+        {ROS Bag};
+
+    \node[node,text width=6cm,onslide={<5> highlight}]
+        (preprocessing)
+        at ($ (serialparser) + (1.75, -4) $)
+        {Preprocessing};
+
+    \node[node, below=1cm of preprocessing.south west,anchor=north west,onslide={<5> highlight}]
+        (apply)
+        {Apply\\Network};
+
+    \node[database, below=1.5cm of preprocessing.south east,anchor=east,onslide={<5> highlight}]
+        (model)
+        {Saved Model};
+
+    \node[node, right=1cm of preprocessing,onslide={<5> highlight}]
+        (sampling)
+        {Sampling};
+
+    \node[node, below=1cm of sampling,onslide={<5> highlight}]
+        (learning)
+        {Learning};
+
+    \node[node, text width=9.5cm]
+        (os)
+        at ($ (apply) + (3.5, -2) $)
+        {Operating System};
+
+    \draw [arrow,applying] ($ (serialparser) + (-0.5,-0.5) $) -- +(0, -3);
+    \draw [arrow,learning] ($ (serialparser) + (0,-0.5) $) -- +(0, -1) -- (bag);
+    \draw [arrow,learning] ($ (keyboard) + (0,-0.5) $) -- +(0, -1) -- (bag);
+    \draw [arrow,learning] (bag) -- (preprocessing);
+    \draw [arrow,applying] ($ (preprocessing) + (-2.25,-0.5) $) -- +(0, -1);
+    \draw [arrow,applying] (model) -- (apply);
+    \draw [arrow,learning] (preprocessing) -- (sampling);
+    \draw [arrow,learning] (sampling) -- (learning);
+    \draw [arrow,learning] (learning) -- (model);
+    \draw [arrow,applying] ($ (apply) + (-0.5,-0.5) $) -- +(0, -1);
+
+    \draw[dotted,line width=2pt] ($ (serialparser) !.5! (sender) + (0, -1.5) $) -- node[at end] (bottom) {} +(0, -8);
+    \draw[dotted,line width=2pt] ($ (serialparser) !.5! (sender) + (0, 1) $) -- +(0, 0.5);
+
+    \node[anchor=north west,right=10mm of bottom,yshift=0.5em] {\large{}\textbf{HOST PC}};
+    \node[anchor=north east,left=10mm of bottom,yshift=0.5em] {\large{}\textbf{GLOVE}};
+
+    \ifdefined\setbeamertemplate
+        \only<1-4>{
+            \node[node, anchor=north west, minimum width=9.6cm, minimum height=3.2cm, fill=white] at (preprocessing.north west) {Machine learning};
+        }
+    \fi
+\end{tikzpicture}

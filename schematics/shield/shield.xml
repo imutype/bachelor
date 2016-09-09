@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>/home/paul/uni/bachelor/schematics/shield/shield.sch</source>
+    <date>So 29 Jan 2017 17:20:27 CET</date>
+    <tool>Eeschema 4.0.5</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>IMUTYPE Shield</title>
+        <company/>
+        <rev/>
+        <date/>
+        <source>shield.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="R3">
+      <value>2.2k</value>
+      <footprint>Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588DFB5B</tstamp>
+    </comp>
+    <comp ref="FM0S1">
+      <value>FeatherM0Shield</value>
+      <footprint>footprints:FeatherM0Shield</footprint>
+      <libsource lib="feather-m0-shield" part="FeatherM0Shield"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588E0529</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>2.2k</value>
+      <footprint>Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588E079C</tstamp>
+    </comp>
+    <comp ref="R4">
+      <value>2.2k</value>
+      <footprint>Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588E07BB</tstamp>
+    </comp>
+    <comp ref="R6">
+      <value>2.2k</value>
+      <footprint>Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588E07DD</tstamp>
+    </comp>
+    <comp ref="R5">
+      <value>2.2k</value>
+      <footprint>Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588E0822</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>2.2k</value>
+      <footprint>Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588E0847</tstamp>
+    </comp>
+    <comp ref="IC1">
+      <value>24C64WP</value>
+      <footprint>footprints:24C64WP</footprint>
+      <libsource lib="feather-m0-shield" part="24C64WP"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588E37A7</tstamp>
+    </comp>
+    <comp ref="D1">
+      <value>LED</value>
+      <footprint>LEDs:LED_D3.0mm</footprint>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588DFEAF</tstamp>
+    </comp>
+    <comp ref="P1">
+      <value>CONN_01X08</value>
+      <footprint>Socket_Strips:Socket_Strip_Angled_1x08</footprint>
+      <libsource lib="conn" part="CONN_01X08"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>588E4561</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="feather-m0-shield" part="24C64WP">
+      <fields>
+        <field name="Reference">IC</field>
+        <field name="Value">24C64WP</field>
+      </fields>
+      <pins>
+        <pin num="1" name="E0" type="unspc"/>
+        <pin num="2" name="E1" type="unspc"/>
+        <pin num="3" name="VSS" type="unspc"/>
+        <pin num="5" name="SDA" type="unspc"/>
+        <pin num="6" name="SCL" type="unspc"/>
+        <pin num="7" name="~WC" type="unspc"/>
+        <pin num="8" name="VCC" type="unspc"/>
+      </pins>
+    </libpart>
+    <libpart lib="conn" part="CONN_01X08">
+      <description>Connector, single row, 01x08</description>
+      <footprints>
+        <fp>Pin_Header_Straight_1X08</fp>
+        <fp>Pin_Header_Angled_1X08</fp>
+        <fp>Socket_Strip_Straight_1X08</fp>
+        <fp>Socket_Strip_Angled_1X08</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">P</field>
+        <field name="Value">CONN_01X08</field>
+      </fields>
+      <pins>
+        <pin num="1" name="P1" type="passive"/>
+        <pin num="2" name="P2" type="passive"/>
+        <pin num="3" name="P3" type="passive"/>
+        <pin num="4" name="P4" type="passive"/>
+        <pin num="5" name="P5" type="passive"/>
+        <pin num="6" name="P6" type="passive"/>
+        <pin num="7" name="P7" type="passive"/>
+        <pin num="8" name="P8" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="feather-m0-shield" part="FeatherM0Shield">
+      <fields>
+        <field name="Reference">FM0S</field>
+        <field name="Value">FeatherM0Shield</field>
+      </fields>
+      <pins>
+        <pin num="0" name="RX" type="unspc"/>
+        <pin num="1" name="TX" type="unspc"/>
+        <pin num="20" name="SDA" type="unspc"/>
+        <pin num="21" name="SCL" type="unspc"/>
+        <pin num="22" name="MISO" type="unspc"/>
+        <pin num="23" name="MOSI" type="unspc"/>
+        <pin num="24" name="SCK" type="unspc"/>
+        <pin num="~" name="BAT" type="unspc"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="LED">
+      <description>LED generic</description>
+      <footprints>
+        <fp>LED*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">LED</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="R">
+      <description>Resistor</description>
+      <footprints>
+        <fp>R_*</fp>
+        <fp>Resistor_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="device">
+      <uri>/usr/share/kicad/library/device.lib</uri>
+    </library>
+    <library logical="conn">
+      <uri>/usr/share/kicad/library/conn.lib</uri>
+    </library>
+    <library logical="feather-m0-shield">
+      <uri>/home/paul/uni/bachelor/schematics/shield/library/feather-m0-shield.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="Net-(D1-Pad2)">
+      <node ref="D1" pin="2"/>
+    </net>
+    <net code="2" name="Net-(IC1-Pad1)">
+      <node ref="IC1" pin="1"/>
+    </net>
+    <net code="4" name="Net-(IC1-Pad2)">
+      <node ref="IC1" pin="2"/>
+    </net>
+    <net code="5" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+      <node ref="P1" pin="8"/>
+      <node ref="R6" pin="1"/>
+    </net>
+    <net code="6" name="Net-(IC1-Pad7)">
+      <node ref="IC1" pin="7"/>
+    </net>
+    <net code="7" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="8" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="9" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="10" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="11" name="Net-(FM0S1-Pad1)">
+      <node ref="FM0S1" pin="1"/>
+    </net>
+    <net code="12" name="Net-(FM0S1-Pad0)">
+      <node ref="FM0S1" pin="0"/>
+    </net>
+    <net code="13" name="Net-(FM0S1-Pad22)">
+      <node ref="FM0S1" pin="22"/>
+    </net>
+    <net code="14" name="Net-(FM0S1-Pad23)">
+      <node ref="FM0S1" pin="23"/>
+    </net>
+    <net code="15" name="Net-(FM0S1-Pad24)">
+      <node ref="FM0S1" pin="24"/>
+    </net>
+    <net code="16" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="17" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="18" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="19" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="20" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="21" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="22" name="Net-(FM0S1-Pad~)">
+      <node ref="R4" pin="1"/>
+      <node ref="P1" pin="7"/>
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="23" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="24" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="25" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="26" name="Net-(FM0S1-Pad~)">
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="27" name="Net-(FM0S1-Pad20)">
+      <node ref="FM0S1" pin="20"/>
+      <node ref="R2" pin="1"/>
+      <node ref="P1" pin="6"/>
+    </net>
+    <net code="28" name="Net-(FM0S1-Pad~)">
+      <node ref="R5" pin="1"/>
+      <node ref="R1" pin="1"/>
+      <node ref="P1" pin="5"/>
+      <node ref="FM0S1" pin="~"/>
+      <node ref="R3" pin="1"/>
+      <node ref="IC1" pin="8"/>
+      <node ref="R4" pin="2"/>
+      <node ref="R2" pin="2"/>
+      <node ref="R6" pin="2"/>
+    </net>
+    <net code="29" name="Net-(FM0S1-Pad~)">
+      <node ref="P1" pin="2"/>
+      <node ref="FM0S1" pin="~"/>
+      <node ref="R5" pin="2"/>
+      <node ref="IC1" pin="6"/>
+    </net>
+    <net code="30" name="Net-(FM0S1-Pad21)">
+      <node ref="R1" pin="2"/>
+      <node ref="FM0S1" pin="21"/>
+      <node ref="P1" pin="4"/>
+    </net>
+    <net code="31" name="Net-(FM0S1-Pad~)">
+      <node ref="P1" pin="3"/>
+      <node ref="IC1" pin="5"/>
+      <node ref="R3" pin="2"/>
+      <node ref="FM0S1" pin="~"/>
+    </net>
+    <net code="32" name="Net-(D1-Pad1)">
+      <node ref="D1" pin="1"/>
+      <node ref="P1" pin="1"/>
+      <node ref="IC1" pin="3"/>
+      <node ref="FM0S1" pin="~"/>
+    </net>
+  </nets>
+</export>

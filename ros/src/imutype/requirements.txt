@@ -1,0 +1,9 @@
+theano
+lasagne
+numpy
+sklearn
+pandas
+pyyaml
+enum34
+python-libxdo
+ujson

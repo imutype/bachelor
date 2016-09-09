@@ -1,0 +1,75 @@
+# In live mode, we read data from ROS topics instead of the provided bag. The
+# bag can be specified via /bag_file param. If not set, a file `recording.bag`
+# in the folder of the configuration is used.
+live_mode: False
+
+# True to learn, false to apply.
+learn_mode: True
+
+# Active IMU ids used for input in the network. Each IMU generates 10 input values,
+# so each IMU corresponds to 10 input neurons.
+#
+# Hint: n_input = len(imu_ids) * 10
+imu_ids: [0, 1, 2, 3, 4, 5]
+
+# Keyboard keycodes (xev) that are used to train the model, all others
+# are filtered from the dataset. The output neurons map to these key_codes.
+#
+# Hint: n_output = len(key_codes)
+key_codes: [45]
+
+# How much of the dataset is used for training (rest goes into testing)
+training_ratio: 0.8
+
+# Optimization learning rate
+learning_rate: 0.002
+
+# Number of epochs to train the net
+epochs: 0
+
+# boolean cutoff for output layer
+output_threshold: 0.5
+
+# How many input data points per training sequence
+sequence_length: 16
+sequence_ratio: 0.5
+
+# Type of the cost function: binary_cross_entropy | mse | mpse | negative_f_score | apm
+cost_function: mse
+
+# Type of recurrent layer: simple_recurrent | lstm | cnn2d
+network_type: cnn2d
+
+# How many values each sample contains, per IMU:
+# full: all 10 values (3 gyro, 3 accel, 4 quat)
+# quat: full quat (4)
+# angles: pitch + yaw (2)
+sampling_mode: quat
+
+negative_sample_min_distance: 2
+
+# Number of hidden units in recurrent/LSTM layer
+n_hidden: 20
+
+# one batch of sequences per epoch, each sequence starts at a randomly
+# chosen index in the training dataset
+batch_size: 100
+
+# The rate at which we snapshot the current imu/key state and
+# it into a single one (merge_events rate)
+sampling_rate: 25
+
+# Number of learnable filter in one layer
+convolution_filter_count: 100
+
+# Filtersize for convolutional layers
+convolution_filter_size: [3, 3]
+
+# Number of cnn2d-layer and pooling-layer pairs
+convolution_iterations: 2
+
+# Array of number of dense layer outputs (descending)
+convolution_dense_layer_units: [10]
+
+# If true, pooling layers are merged into one before filtering again
+convolution_deep_filters: false

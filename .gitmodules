@@ -1,0 +1,9 @@
+[submodule "externals/Arduino-Makefile"]
+	path = externals/Arduino-Makefile
+	url = https://github.com/opatut/Arduino-Makefile
+[submodule "externals/i2cdevlib"]
+	path = externals/i2cdevlib
+	url = https://github.com/jrowberg/i2cdevlib
+[submodule "externals/generate-arduino-makefile"]
+	path = externals/generate-arduino-makefile
+	url = git@github.com:opatut/generate-arduino-makefile

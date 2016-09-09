@@ -1,0 +1,114 @@
+\chapter{Maschinelles Lernen} \chaplabel{ml}
+
+In diesem Kapitel möchte ich kurz das Vorgehen und die Ergebnisse des
+maschinellen Lernens beschreiben, um eine vollständige Verständlichkeit des
+Gesamtprojektes zu ermöglichen. Ich werde jedoch nicht alle Details beleuchten,
+da dies außerhalb des Themas dieser Arbeit liegt. Die genaue Ausarbeitung
+dieser Aspekte sind Inhalt der Bachelorarbeit von Carolin \citet{caro}, und
+dort nachzulesen.
+
+\section{Überblick}
+
+In \figref{overview} habe ich bereits alle Komponenten des maschinellen Lernens
+in unserem Projekt vorgestellt. Angefangen im \fremdwort{Preprocessing} werden
+die Rohdaten von den Sensoren und der Tastatur vorverarbeitet. Aus diesem
+Datenstrom werden im \fremdwort{Sampling} sogenannte Samples extrahiert, also
+unabhängige Datensätze, welche jeweils ein Lernbeispiel beinhalten. Im
+\fremdwort{Learning} wird der gewählte Algorithmus angepasst, indem ihm
+Lernbeispiele vorgestellt werden. Das gelernte Modell wird gespeichert und kann
+dann in \fremdwort{Apply Network} direkt mit den vorverarbeiteten Daten
+angewendet werden, um eine Vorhersage (\fremdwort{prediction}) zu generieren.
+
+Die wichtigste Entscheidung ist die Wahl des ML-Algorithmus. Da wir Datensätze
+mit den dazugehörigen tatsächlichen Ergebnissen (Tastaturanschläge)
+aufzeichnen, können wir einen Algorithmus des überwachten Lernens wählen. Wir
+entscheiden uns für ein neuronales Netzwerk, da diese in der Lage sind sehr
+komplexe Zusammenhänge zu erlernen, und wir flexibel das Netzlayout und die
+Parameter konfigurieren und optimieren können. Auch sind neuronale Netze,
+sobald sie trainiert wurden, sehr effizient anzuwenden, was in unserer
+Echtzeitanwendung wichtig ist.
+
+Bei den neuronalen Netzen gibt es zahlreiche Varianten, die sich alle in ihrem
+Aufbau und damit in ihrer Funktion unterscheiden. Da wir Zeitfolgen lernen
+wollen, experimentierten wir zuerst mit einfachen rekurrenten Netzen
+\citep{elman-rnn}. Hier traten jedoch Probleme auf, da unseren Daten
+unausgeglichenen sind: Der Anteil der Zeit, in der gerade eine Taste gedrückt
+wird, ist verhältnismäßig zum Rest sehr gering. Außerdem beobachten wir das
+\fremdwort{Vanishing Gradient Problem} \citep{hochreiter-vanishing-gradient},
+also die Problematik, dass die vorderen Schichten im Netz nur sehr langsam
+angepasst werden, weil rekurrente Netze sehr tief sind.
+
+Stattdessen wählten wir ein \fremdwort{Convolutional Neural Network}
+\citep[CNN;][]{cnn_orig}. Dieser Netztyp wird häufig in der Bilderkennung
+eingesetzt, da er in der Lage ist, mehrdimensionale Muster zu unterscheiden.
+Dies geschieht durch eine Aneinanderreihung mehrerer Convolution-Pooling
+Schichtpaare. In der Convolution werden mithilfe von Filtern (ähnlich den
+Kerneln in der Bildverarbeitung) verschiedene Features extrahiert. Das
+markanteste lokale Feature wird im Pooling ermittelt, wobei die Größe des
+Datensatzes verringert wird. Somit reduziert sich nach einigen Wiederholungen
+die Datenmenge auf die ,,interessanten'' Informationen aus den Originaldaten.
+Diese können dann mit einer oder mehreren vollständig verknüpften
+Netzwerkschichten klassifiziert werden.
+
+\section{Experimente}
+
+Zur Bewertung des Systems führten wir verschiedene Experimente durch, in denen
+wir die Brauchbarkeit der Hardware und des ML-Ansatzes testeten. Diese
+Experimente lassen sich in 4 Phasen einteilen:
+
+\begin{description}
+    \item[Vorbereitung]
+        Zunächst entwickelten wir unter Verwendung von Dummy-Aufzeichnungen das
+        gesamte Softwaresystem, um alle Einzelschritte der kompletten Pipeline
+        und deren Zusammenspiel zu testen.
+
+    \item[Phase 1: Erkennen einer Taste]
+        Hier zeichneten wir einen Datensatz auf, in welchem der Proband
+        ausschließlich 2 Tasten, \keyboard{N} und \keyboard{H} drückte. Unser
+        Ziel war es, den Datensatz zunächst manuell zu analysieren, und
+        anschließend automatisch die Tastendrücke erkennen. Dabei wollten wir
+        untersuchen, ob der gewählte ML-Algorithmus in der Lage war, anhand der
+        Daten Tastendrücke zu erkennen und unter den benachbarten Tasten zu
+        unterscheiden.
+
+    \item[Phase 2: Differenzieren verschiedener Tasten]
+        In dieser Phase weiteten wir die Anzahl der Tasten von 2 auf 10 aus und
+        benutzten somit auch mehrere Finger (Daumen, Zeigefinger und
+        Mittelfinger). Die dabei aufgetretenen Probleme beschreibe ich in
+        \secref{probleme}.
+
+    \item[Phase 3: Flüssiges Schreiben]
+        Diese Phase haben wir noch nicht begonnen, sie wird darauf abzielen
+        alle Tasten einer Hand ohne Pausen zwischen den Tastenanschlägen
+        benutzen zu können.
+\end{description}
+
+\section{Ergebnisse}
+
+In der ersten Phase bemerkten wir bereits, dass unser ursprünglicher Ansatz mit
+dem rekurrenten Netz nicht geeignet war, und wechselten zum CNN.  Es
+kristallisierte sich heraus, dass ein CNN in der Lage ist, die Fingerbewegungen
+für das Drücken einer Taste zu erkennen und in einem gewissen Maße auch der
+korrekten Taste zuzuordnen. In der ersten Phase erreichten wir eine
+Prädiktionsgenauigkeit von knapp 97\%.
+
+In der zweiten Phase wurde uns jedoch bewusst, dass die Aufgabe recht komplex
+ist und noch einiger Verbesserungen bedarf. Ein erstes Experiment in dieser
+Phase war weitaus weniger erfolgreich als erhofft. Das Netz war in der Lage,
+zwischen einigen der 10 Tasten zu differenzieren, allerdings wurden
+\keyboard{H}, \keyboard{J}, \keyboard{\spacebar} und $\emptyset$ (,,keine Taste
+gedrückt'') nicht voneinander unterschieden. Wir begründeten dies damit, dass
+meine Finger in der Ruheposition auf diesen Tasten liegen, und die Bewegungen
+für diese Tasten nur relativ klein sind.
+
+In einer zweiten Wiederholung des Experimentes mit gleichen Daten hatten wir
+mehr Glück, nach einiger Zeit wurden auch diese problematischen Tasten erkannt,
+wenn auch nicht mit der gleichen Genauigkeit wie die anderen Tasten. Insgesamt
+erreichte die Klassifikation eine Genauigkeit von 85\%. Dieses Ergebnis ist
+recht zufriedenstellend, wenn auch noch ausbaufähig.
+
+Für die nächste Phase, in welcher das flüssige Schreiben gelernt werden soll,
+müssen noch einige Verbesserungen durchgeführt werden. Vorschläge hierfür
+werden in der Arbeit von Carolin \citet*{caro} geschildert.
+
+% vim: tw=79

@@ -1,0 +1,305 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%% Packages
+
+\usepackage{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[pdftex]{graphicx}
+\usepackage[ngerman]{babel}
+\usepackage{colortbl}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[toc,page]{appendix}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage[hidelinks]{hyperref}
+\usepackage{lastpage}
+\usepackage{nameref}
+\usepackage{etoolbox}
+\usepackage[binary-units=true]{siunitx}
+\usepackage{eurosym}
+\usepackage{wrapfig}
+\usepackage{multirow,bigdelim}
+\usepackage{multicol}
+\usepackage{pgfplots}
+\usepackage{listings}
+\usepackage{array}
+\usepackage[within=none]{caption}
+\usepackage{adjustbox}
+\usepackage{xspace}
+\usepackage[inline]{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{subcaption}
+% \usepackage{float}
+\usepackage{titlesec}
+\usepackage[backend=biber,labelnumber,defernumbers=true,style=authoryear,natbib=true]{biblatex}
+\usepackage{makecell}
+\usepackage{minted}
+\usepackage{nicefrac}
+\usepackage{csquotes}
+\usepackage{lipsum}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{afterpage}
+\usepackage{ltablex}
+\usepackage{keycommand}
+
+\let\tmp\oddsidemargin
+\let\oddsidemargin\evensidemargin
+\let\evensidemargin\tmp
+\reversemarginpar
+
+% rubber: setlist arguments --shell-escape
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%% Helper macros for different types of TODOs
+
+\newcommand{\factcheck}{\textcolor{orange}{\textsuperscript{\textbf{!!}}}~}
+\newcommand{\citationneeded}{\textcolor{blue}{\textsuperscript{\textbf{??}}}~}
+\newcommand{\cn}{\citationneeded} % alias for \citationneeded
+\newcommand{\todo}{\textcolor{green}{TODO!}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%% References
+
+\newcommand{\figlabel}[1]{\label{fig:#1}}
+\newcommand{\chaplabel}[1]{\label{chap:#1}}
+\newcommand{\seclabel}[1]{\label{sec:#1}}
+\newcommand{\tablabel}[1]{\label{tab:#1}}
+\newcommand{\subseclabel}[1]{\label{subsec:#1}}
+\newcommand{\lstlabel}[1]{\label{lst:#1}}
+
+\newcommand{\figref}[1]{\figurename~\ref{fig:#1}}
+\newcommand{\chapref}[1]{\chaptername~\ref{chap:#1}}
+\newcommand{\secref}[1]{\secname~\ref{sec:#1}}
+\newcommand{\tabref}[1]{\tablename~\ref{tab:#1}}
+\newcommand{\subsecref}[1]{\subsecname~\ref{subsec:#1}}
+\newcommand{\lstref}[1]{\listingscaption~\ref{lst:#1}}
+
+\newcommand{\Figref}[1]{\figref{#1} ,,\nameref{fig:#1}''}
+\newcommand{\Chapref}[1]{\chapref{#1} ,,\nameref{chap:#1}''}
+\newcommand{\Secref}[1]{\secref{#1} ,,\nameref{sec:#1}''}
+\newcommand{\Tabref}[1]{\tabref{#1} ,,\nameref{tab:#1}''}
+\newcommand{\Subsecref}[1]{\subsecref{#1} ,,\nameref{subsec:#1}''}
+\newcommand{\Lstref}[1]{\lstref{#1} ,,\nameref{lst:#1}''}
+
+% use for referencing a chapter inside a \cite, e.g. \cite[\citechap{5}]{mycite}
+\newcommand{\citechap}[1]{Kapitel~#1}
+
+% Optinally rename headings :)
+%\addto\captionsngerman{\renewcommand{\chaptername}{Kap.}}
+%\addto\captionsngerman{\renewcommand{\figurename}{Abb.}}
+%\addto\captionsngerman{\renewcommand{\tablename}{Tab.}}
+%\addto\captionsngerman{\renewcommand{\sectionname}{Abschn.}}
+%\addto\captionsngerman{\renewcommand{\subsectionname}{U.-abschn.}}
+\renewcommand{\listingscaption}{Codebeispiel}
+\newcommand{\secname}{Abschnitt}
+\newcommand{\subsecname}{Unterabschnitt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%% Tikz style rules and configuration
+
+\usetikzlibrary{calc}
+\usetikzlibrary{fit}
+\usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{shadows}
+\usetikzlibrary{automata}
+\usetikzlibrary{matrix}
+\usetikzlibrary{intersections}
+\tikzset{
+    keyboardkey/.style={
+      draw,
+      fill=white,
+      drop shadow={shadow xshift=0.25ex,shadow yshift=-0.25ex,fill=black,opacity=0.75},
+      rectangle,
+      rounded corners=1pt,
+      inner sep=2pt,
+      minimum height=12pt,
+      minimum width=1em,
+      line width=0.5pt,
+      font=\scriptsize\sffamily
+    },
+    onslide/.code args={<#1>#2}{% http://tex.stackexchange.com/a/6155/16595
+        \only<#1>{\pgfkeysalso{#2}}
+    },
+    flowchart node/.style={
+        rectangle,
+        rounded corners,
+        minimum width=3cm,
+        minimum height=0.8cm,
+        text width=3cm,
+        align=center,
+        draw=black,
+        fill=white,
+        thick,
+        font=\scriptsize,
+    },
+    flowchart arrow/.style={
+        thick,
+        ->,
+        >=stealth,
+    },
+}
+\pgfplotsset{
+    /pgfplots/xlabel near ticks/.style={
+        /pgfplots/every axis x label/.style={
+            at={(ticklabel cs:0.5)},
+            anchor=near ticklabel
+        }
+    },
+    /pgfplots/ylabel near ticks/.style={
+        /pgfplots/every axis y label/.style={
+            at={(ticklabel cs:0.5)},
+            rotate=90,
+            anchor=near ticklabel
+        }
+    }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%% Text formatting commands
+
+\newcommand{\imagesource}[1]{\par\vspace{2mm}\tiny{}Bildquelle: \url{#1}}
+\newcommand{\productname}[1]{\textsc{#1}}
+\newcommand{\fremdwort}[1]{\emph{#1}}
+\DeclareRobustCommand\keyboard[1]{%
+    \tikz[baseline={($(key) + (0, -3pt)$)}]\node[keyboardkey] (key) {\textbf{#1}};
+}
+\newcommand{\shift}{$\Uparrow$}
+\newcommand{\return}{\rotatebox[origin=c]{180}{$\Rsh$}}
+\newcommand{\spacebar}{\textvisiblespace{}}
+
+\newcommand{\iic}{I\textsuperscript{2}C\xspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%% Title formats
+
+\titleformat{\chapter}{\normalfont\huge\bfseries}{\thechapter}{2em}{}
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\bfseries}{\thesubsubsection}{1em}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%% Spacing
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.5ex}
+\newcommand{\only}[1]{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%% Layouting rules
+
+% Don't spread text vertically on the page
+\raggedbottom
+% Try not to split footnotes
+\interfootnotelinepenalty=10000
+% \floatplacement{figure}{tb}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%% Itemization style
+
+\renewcommand{\labelitemi}{--}
+\renewcommand{\labelitemii}{$\rightarrow$}
+\renewcommand{\labelitemiii}{$\bullet$}
+\renewcommand{\labelitemiv}{$\bullet$}
+
+% \renewcommand{\labelenumi}{\theenumi.}
+% \renewcommand{\labelenumii}{(\theenumii)}
+% \renewcommand{\labelenumiii}{\theenumiii.}
+% \renewcommand{\labelenumiv}{\theenumiv}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%% Font family
+
+% \renewcommand{\familydefault}{\sfdefault}
+\sisetup{math-rm=\mathsf,text-rm=\sffamily,per-mode=symbol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%% Color defintiions
+
+\definecolor{uhhred}{RGB}{226,0,26}
+\definecolor{primary}{RGB}{226,0,26}
+\definecolor{secondary}{RGB}{78,78,78}
+
+% Some plot colors, same scheme that matplotlib uses by default
+\definecolor{plot0}{HTML}{0072bd}
+\definecolor{plot1}{HTML}{d95319}
+\definecolor{plot2}{HTML}{edb120}
+\definecolor{plot3}{HTML}{7e2f8e}
+\definecolor{plot4}{HTML}{77ac30}
+\definecolor{plot5}{HTML}{4dbeee}
+\definecolor{plot6}{HTML}{a2142f}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%% Bibliography
+\addbibresource{../common/sources.bib}
+
+\DeclareFieldFormat{labelnumberwidth}{\mkbibbrackets{#1}}
+
+% \usepackage{xpatch}
+% \xpretobibmacro{author}{\mkbibbold\bgroup}{}{}
+% \xapptobibmacro{author}{\egroup}{}{}
+% \xpretobibmacro{bbx:editor}{\mkbibbold\bgroup}{}{}
+% \xapptobibmacro{bbx:editor}{\egroup}{}{}
+% \renewcommand*{\labelnamepunct}{\mkbibbold{\addcolon\space}}
+\setlength{\bibitemsep}{1ex}
+% \setlength{\bibhang}{3ex}
+
+\newcommand{\letbibmacro}[2]{%
+  \csletcs{abx@macro@#1}{abx@macro@#2}%
+}
+\letbibmacro{original-cite}{cite}
+
+\renewbibmacro*{cite}{%
+  \printtext[bibhyperref]{%
+    \printfield{labelprefix}%
+    \ifentrytype{online}
+      {\printfield[labelnumberwidth]{labelnumber}}
+      {\usebibmacro{original-cite}}}}
+
+\defbibenvironment{bibliographyNUM}
+  {\list
+     {\printtext[labelnumberwidth]{%
+        \printfield{prefixnumber}%
+        \printfield{labelnumber}}}
+     {\setlength{\labelwidth}{\labelnumberwidth}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \setlength{\labelsep}{\biblabelsep}%
+      \addtolength{\leftmargin}{\labelsep}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}%
+      \renewcommand*{\makelabel}[1]{\hss##1}}
+  {\endlist}
+  {\item}
+
+\assignrefcontextkeyws[sorting=none]{online}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%% Code listings
+\usepackage[scaled]{beramono}
+\setminted{
+    framerule=1pt,
+    xleftmargin=5mm,
+    baselinestretch=1.0,
+    style=colorful,
+    linenos,
+    fontsize=\small,
+}
+\let\oldinputminted\inputminted
+\usepackage{mdframed}
+\renewcommand{\inputminted}[2]{%
+    \begin{mdframed}%
+        \oldinputminted{#1}{#2}%
+    \end{mdframed}%
+}

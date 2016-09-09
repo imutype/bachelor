@@ -1,0 +1,60 @@
+\begin{tikzpicture}[
+    ->,
+    >=stealth',
+    shorten >=1pt,
+    auto,
+    node distance=2.2cm,
+    semithick,
+    layer/.style={
+        draw,
+        minimum width=0.9cm,
+        minimum height=6cm,
+    },
+    bend angle=15,
+    every state/.style={
+        very thick,
+        fill=white,
+        distance=1.2,
+        minimum size=0.5cm,
+    },
+]
+    \node[state]         (D)  {};
+    \node[state]         (A) [above left=1cm and 2.2cm of D] {};
+    \node[state]         (B) [below left=1cm and  2.2cm of D] {};
+
+    \node[state]         (C) [above of=D] {};
+
+    \node[state]         (E) [below of=D] {};
+    \node[state]         (F) [right =2.2cm of D] {};
+
+    \path   (A) edge              node {} (C)
+                edge              node {} (D)
+                edge              node {} (E)
+
+              (B) edge              node {} (C)
+                edge              node {} (D)
+                edge              node {} (E)
+
+            (C) edge [loop above,gray] node {} (C)
+                edge              node {} (F)
+                edge [bend left,gray]  node {} (D)
+                edge [bend left,gray]  node {} (E)
+
+            (D) edge [loop above,gray] node {} (D)
+                edge              node {} (F)
+                edge [bend left,gray]  node {} (C)
+                edge [bend left,gray]  node {} (E)
+
+            (E) edge [loop above,gray] node {} (E)
+                edge [bend left,gray]  node {} (C)
+                edge [bend left,gray]  node {} (D)
+                edge              node {} (F);
+
+
+    \node[layer,label=below:{\small\textbf{input}}] at ($(A) !.5! (B)$) {};
+    \node[layer,label=below:{\small\textbf{hidden}}] at (D) {};
+    \node[layer,label=below:{\small\textbf{output}}] at (F) {};
+    % \draw ($(E.south west) - (0.2, 0.2)$) rectangle ($(C.north east) + (0.2, 0.2)$);
+    % \draw ($(F.south west) - (0.2, 0.2)$) rectangle ($(F.north east) + (0.2, 0.2)$);
+
+\end{tikzpicture}

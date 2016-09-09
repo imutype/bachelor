@@ -1,0 +1,92 @@
+\documentclass[a4paper,10pt,fleqn,oneside]{scrartcl}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[toc,page]{appendix}
+\usepackage{floatflt}
+\usepackage{lmodern}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{pgfplots}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage[hidelinks]{hyperref}
+\usepackage{listings}
+\usepackage{mdframed}
+\usepackage{tabularx}
+\usepackage{tabu}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{blindtext}
+\usepackage{etoolbox}
+\usepackage{lastpage}
+\usepackage{tocloft}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[asymmetric,top=1.5in,bottom=1.5in,left=1.2in,right=1.2in]{geometry}
+\usepackage[sectionbib]{natbib}
+\interfootnotelinepenalty=10000
+
+\usepackage{tgpagella}
+% \usepackage{quattrocento}
+
+\usetikzlibrary{shapes,arrows,calc,patterns,decorations.markings,shadows.blur}
+
+
+\title{A prototype for a typing device using IMUs and machine learning}
+\subtitle{Exposé for two Bachelor of Science theses}
+\author{
+  Bienkowski, Paul\\
+  \texttt{2bienkow@informatik.uni-hamburg.de}
+  \and
+  Konietzny, Carolin\\
+  \texttt{3konietz@informatik.uni-hamburg.de}
+}
+\date{\today}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Exposé - Typing device}
+% \fancyhead[R]{}
+%\setlength{\footskip}{2em}
+%\setlength{\footrulewidth}{0.4pt}
+\fancyfoot[L]{\small{}Bienkowski, Konietzny}
+\fancyfoot[R]{\small{}Page \thepage \:of \pageref{LastPage}}
+
+\newif\iffinal
+\finaltrue
+
+% \renewcommand{\arraystretch}{1.2}
+% \renewcommand{\arraystretch}{1.5}
+% \renewcommand{\familydefault}{\sfdefault}
+\linespread{1.1}
+
+\let\stdsection\section
+% \renewcommand\section{\newpage\stdsection}
+\setlength{\parindent}{0pt}
+% \setlength{\parskip}{1.8ex}
+\setlength{\parskip}{1.0ex}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\input{motivation.tex}
+\input{goal.tex}
+\input{vision.tex}
+\input{project.tex}
+\input{toc.tex}
+\input{state-of-the-art.tex}
+\input{bib.tex}
+
+\end{document}

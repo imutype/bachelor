@@ -1,0 +1,80 @@
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,minimum width=1.4em,minimum height=1.4em,inner sep=0pt] (char) {#1};}}
+
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lrccccrccccrl@{}}
+    \toprule
+    & \phantom{X} & \multicolumn{4}{c}{Primäre Pads} & \phantom{X} & \multicolumn{4}{c}{Alternative Pads} & \phantom{X} & \\
+    \cmidrule{3-6} \cmidrule{8-11}
+    SERCOM &
+        & 0 & 1 & 2 & 3 &
+        & 0 & 1 & 2 & 3 &
+        & Standardbelegung \\ \midrule
+    0 &
+        & 4\textsuperscript{\(\dagger\)}
+        & 3
+        & 1
+        & 0 &
+        & \circled{A3}
+        & \circled{A4}
+        & 8
+        & 9 &
+        & Serial1 \\
+    1 &
+        & 11
+        & 13
+        & 10
+        & 12 &
+        & \textendash
+        & \textendash
+        & \textendash
+        & \textendash &
+        & \\
+    2 &
+        & 22
+        & \textendash
+        & 2\textsuperscript{\(\dagger\)}
+        & 5 &
+        & 4\textsuperscript{\(\dagger\)}
+        & 3
+        & 1
+        & 0 &
+        & \\
+    3 &
+        & 20
+        & 21
+        & 6\textsuperscript{\(\ast\)}
+        & 7\textsuperscript{\(\ast\dagger\)} &
+        & \circled{11}
+        & \circled{13}
+        & 10
+        & 12 &
+        & Standard-\iic \\
+    4 &
+        & 22
+        & \textendash
+        & 23\textsuperscript{\(\ast\)}
+        & 24\textsuperscript{\(\ast\)} &
+        & A1
+        & A2
+        & 2\textsuperscript{\(\dagger\)}
+        & 5 &
+        & SPI \\
+    5 &
+        & A5\textsuperscript{\(\ast\)}
+        & \textendash
+        & 6
+        & 7\textsuperscript{\(\dagger\)} &
+        & \circled{20}
+        & \circled{21}
+        & \textendash
+        & \textendash &
+        & Debugging Port\\
+    \bottomrule
+\end{tabular}
+
+\begin{itemize}[noitemsep]\scriptsize
+    \item[$\ast$] müssen als alternative Pads konfiguriert werden
+    \item[$\dagger$] Pins 2, 4, 7 und 8 werden intern für das WLAN-Modul
+    verwendet.
+\end{itemize}

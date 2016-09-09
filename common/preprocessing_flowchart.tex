@@ -1,0 +1,24 @@
+\begin{tikzpicture}[
+    node distance=5mm,
+    node/.style={
+        flowchart node,
+        minimum width=2cm,
+        text width=2cm,
+    },
+    highlight/.style={
+        draw=primary,
+        color=primary,
+        fill=primary!10!white,
+    },
+]
+    \node[node,onslide={<2-3> highlight}]  (quat) at (0, 0) {Quaternions};
+    \node[node,onslide={<2-3> highlight}, below=of quat] (rel) {Relative to base};
+    \node[node,onslide={<4> highlight}, below=of rel] (int) {Timesteps/\\Interpolate};
+    \node[node,onslide={<5> highlight}, below=of int] (samples) {Pick samples at key strokes};
+    \node[node,onslide={<5> highlight}, below=of samples,dashed] (angles) {Extract angles for visualization};
+
+    \draw[flowchart arrow] (quat) -- (rel);
+    \draw[flowchart arrow] (rel) -- (int);
+    \draw[flowchart arrow] (int) -- (samples);
+    \draw[flowchart arrow,dashed] (samples) -- (angles);
+\end{tikzpicture}

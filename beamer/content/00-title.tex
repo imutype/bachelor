@@ -1,0 +1,48 @@
+% \begin{frame}[plain]
+%     \vspace{1cm}
+%     \vfill
+%     \centering
+%     \includegraphics[width=\textwidth]{../common/images/keyboards_are_disgusting}
+%     \imagesource{https://xkcd.com/237/}
+%     \vfill
+% \end{frame}
+%
+\frame[plain]{
+    \titlepage
+
+    \notes{
+        \item welcome the audience
+        \item introduce ourselves
+        \item explain this is our bachelor's thesis defense
+    }
+}
+
+\begin{frame}{\contentsname}
+    \iffinal
+        \tableofcontents[subsectionstyle=hide,subsubsectionstyle=hide]
+    \else{
+        \begin{multicols*}{2}
+            \tableofcontents[subsubsectionstyle=hide]
+            \vfill\null
+        \end{multicols*}
+    }\fi
+
+    \notes{
+        \item 1, 2 Paul
+        \item 3, 4 Caro
+        \item Demo \& Conclusion together
+    }
+\end{frame}
+
+\AtBeginSection[]{
+    \begin{frame}{\insertsectionhead}
+        \tableofcontents[
+            currentsection,
+            currentsubsection,
+            subsectionstyle=show/show/hide,
+            subsubsectionstyle=hide,
+        ]
+    \end{frame}
+
+    \addtocounter{framenumber}{-1}% If you don't want them to affect the slide number
+}

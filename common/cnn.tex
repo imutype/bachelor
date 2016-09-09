@@ -1,0 +1,127 @@
+\begin{tikzpicture}
+    \matrix(start)[
+        matrix of nodes,
+        inner sep=0pt,
+        draw,
+        nodes={
+            inner sep=0pt,
+            text width=.5cm,
+            align=center,
+            minimum height=.5cm,
+            draw,
+        }
+    ]{
+       5  & 2 & 3 & 8 \\    0 & |[fill=primary!25]|{1} & 2 & 6 \\    4 & 8 & 5 & 4 \\    1 & 7 & 1 & 7\\};
+
+    \matrix(filter0)[
+        inner sep=0pt,
+        draw,
+        label=above:{\tiny{}Filter 0},
+        opacity=0.5,
+        above right=-0.2cm and 0.8cm of start,
+        matrix of nodes,
+        nodes={
+            inner sep=0pt,
+            text width=.5cm,
+            align=center,
+            minimum height=.5cm,
+            draw,
+        },
+    ]{
+        0 & 1 & 0 \\    0 & 1 & 0 \\    0 & 1 & 0 \\};
+    \matrix(filterN)[
+        inner sep=0pt,
+        draw,
+        label=above:{\tiny{}Filter N},
+        opacity=0.5,
+        below right=-0.2cm and 0.8cm of start,
+        matrix of nodes,
+        nodes={
+            inner sep=0pt,
+            text width=.5cm,
+            align=center,
+            minimum height=.5cm,
+            draw,
+        },
+    ]{
+        0 & 0 & 1 \\    0 & 1 & 0 \\    1 & 0 & 0 \\};
+
+    \node (rect) at (-0.25, 0.25) [draw=primary,line width=0.6mm,minimum width=1.5cm,minimum height=1.5cm] {};
+    \draw[->, thick, primary] (rect) -- (filter0);
+    \draw[->, thick, primary] (rect) -- (filterN);
+
+    \matrix(conv0)[
+        matrix of nodes,
+        inner sep=0pt,
+        draw,
+        right=of filter0,
+        label=above:{\tiny{Feature Map 0}},
+        nodes={
+            inner sep=0pt,
+            text width=.5cm,
+            align=center,
+            minimum height=.5cm,
+            draw,
+        }
+    ]{
+        5 & 3 & 5 & 14 \\    9 & |[fill=primary!25]|{11} & 10 & 18 \\    5 & 16 & 8 & 17 \\    5 & 15 & 6 & 11\\};
+
+    \matrix(convN)[
+        matrix of nodes,
+        inner sep=0pt,
+        draw,
+        right=of filterN,
+        label=above:{\tiny{}Feature Map N},
+        nodes={
+            inner sep=0pt,
+            text width=.5cm,
+            align=center,
+            minimum height=.5cm,
+            draw,
+        }
+    ]{
+        5 & 2 & 4 & 10 \\    2 & |[fill=primary!25]|{8} & 18 & 11 \\    5 & 11 & 18 & 5 \\    9 & 12 & 5 & 7\\};
+
+    \node (rect2) at ($(conv0) + (-0.5, 0.5)$) [draw=orange,line width=0.6mm,minimum width=1cm,minimum height=1cm] {};
+    \node (rect2) at ($(convN) + (-0.5, 0.5)$) [draw=orange,line width=0.6mm,minimum width=1cm,minimum height=1cm] {};
+    \matrix(pool0)[
+        inner sep=0pt,
+        draw,
+        label=above:{\tiny{}Pool 0},
+        right=of conv0,
+        matrix of nodes,
+        nodes={
+            inner sep=0pt,
+            text width=.5cm,
+            align=center,
+            minimum height=.5cm,
+            draw,
+        },
+    ]{
+        |[fill=orange!25]|{11} & 18 \\    16 & 17 \\};
+    \matrix(poolN)[
+        inner sep=0pt,
+        draw,
+        label=above:{\tiny{}Pool N},
+        right=of convN,
+        matrix of nodes,
+        nodes={
+            inner sep=0pt,
+            text width=.5cm,
+            align=center,
+            minimum height=.5cm,
+            draw,
+        },
+    ]{
+        |[fill=orange!25]|{8} &  18\\    12 & 18 \\};
+    % \draw(rect)[primary, line width=0.65mm] (-1,-0.5) rectangle (0.5,1);
+    \draw[->, line width=1pt, primary,bend angle=20] (filter0.east |- conv0-2-2.north west) to[bend left] (conv0-2-2.north west);
+    \draw[->, line width=1pt, primary,bend angle=20] (filterN.east |- convN-2-2.north west) to[bend left] (convN-2-2.north west);
+    \draw[->, line width=1pt, orange,bend angle=20] (conv0-2-2.east |- pool0-1-2.north west) to[bend left] (pool0-1-1.north west);
+    \draw[->, line width=1pt, orange,bend angle=20] (convN-2-2.east |- poolN-1-2.north west) to[bend left] (poolN-1-1.north west);
+    \node[font=\Large] at ($(filter0)!0.45!(filterN)$) {$\vdots$};
+    % \path   (rect) edge              node {} (filter0)
+            % (rect) edge              node {} (filterN);
+
+    \node[font=\Large] at ($(conv0)!0.45!(convN)$) {$\vdots$};
+\end{tikzpicture}

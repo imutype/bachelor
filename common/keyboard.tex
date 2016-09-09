@@ -1,0 +1,119 @@
+\newkeycommand\drawkeyboard[scale=1,4=white,5=white,6=white,7=white,8=white,9=white,0=white,minus=white,equalsign=white,backspace=white,r=white,t=white,y=white,u=white,i=white,o=white,p=white,lbracket=white,rbracket=white,backslash=white,f=white,g=white,h=white,j=white,k=white,l=white,semi=white,tick=white,return=white,c=white,v=white,b=white,n=white,m=white,comma=white,dot=white,slash=white,shift=white,space=white,alt=white,meta=white,menu=white,ctrl=white]{%
+    \scalebox{\commandkey{scale}}{
+        \sffamily
+        \begin{tikzpicture}[
+            remember picture,
+            keyboard key/.code args={##1}{
+                \pgfkeysalso{
+                    draw,
+                    rectangle,
+                    minimum width=6mm,
+                    minimum height=6mm,
+                    inner sep=0pt,
+                    font=\small,
+                    fill={\commandkey{##1}}
+                }
+            },
+            legend/.style={
+                draw,
+                rectangle,
+                minimum width=3mm,
+                minimum height=3mm,
+            },
+        ]
+            \node[keyboard key=g] (g) at (0, 0) {G};
+            \node[keyboard key=h,right=1mm of g] (h) {H};
+            \node[keyboard key=j,right=1mm of h] (j) {J};
+            \node[keyboard key=k,right=1mm of j] (k) {K};
+            \node[keyboard key=l,right=1mm of k] (l) {L};
+            \node[keyboard key={semi},right=1mm of l] (semi) {;};
+            \node[keyboard key={tick},right=1mm of semi] (tick) {\textquotesingle};
+            \node[keyboard key={backslash},right=1mm of tick] (backslash) {\textbackslash};
+
+            \node[keyboard key=b,below right=1mm and -4mm of g] (b) {B};
+            \node[keyboard key=n,right=1mm of b] (n) {N};
+            \node[keyboard key=m,right=1mm of n] (m) {M};
+            \node[keyboard key={comma},right=1mm of m] (comma) {,};
+            \node[keyboard key={dot},right=1mm of comma] (dot) {.};
+            \node[keyboard key={slash},right=1mm of dot] (slash) {/};
+            \node[keyboard key={shift},right=1mm of slash,minimum width=16mm] (shift) {$\uparrow$};
+
+            \node[keyboard key=t,above left=1mm and -4mm of g] (t) {T};
+            \node[keyboard key=y,right=1mm of t] (y) {Y};
+            \node[keyboard key=u,right=1mm of y] (u) {U};
+            \node[keyboard key=i,right=1mm of u] (i) {I};
+            \node[keyboard key=o,right=1mm of i] (o) {O};
+            \node[keyboard key=p,right=1mm of o] (p) {P};
+            \node[keyboard key={lbracket},right=1mm of p] (lbracket) {[};
+            \node[keyboard key={rbracket},right=1mm of lbracket] (rbracket) {]};
+
+            \node[keyboard key=5,above left=1mm and -4mm of t] (5) {5};
+            \node[keyboard key=6,right=1mm of 5] (6) {6};
+            \node[keyboard key=7,right=1mm of 6] (7) {7};
+            \node[keyboard key=8,right=1mm of 7] (8) {8};
+            \node[keyboard key=9,right=1mm of 8] (9) {9};
+            \node[keyboard key=0,right=1mm of 9] (0) {0};
+            \node[keyboard key={minus},right=1mm of 0] (minus) {-};
+            \node[keyboard key={equalsign},right=1mm of minus] (equalsign) {=};
+            \node[keyboard key={backspace},right=1mm of equalsign,minimum width=8mm] (backspace) {$\leftarrow$};
+
+            \node[keyboard key={space},below=1mm of b,minimum width=38mm] (space) {\textvisiblespace};
+            \node[keyboard key={alt},font=\tiny,right=1mm of space,minimum width=7mm] (alt) {Alt};
+            \node[keyboard key={meta},font=\tiny,right=1mm of alt,minimum width=7mm] (meta) {Meta};
+            \node[keyboard key={menu},font=\tiny,right=1mm of meta,minimum width=7mm] (menu) {Menu};
+            \node[keyboard key={ctrl},font=\tiny,right=1mm of menu,minimum width=11mm] (ctrl) {Ctrl};
+
+            \node[keyboard key=v,left=1mm of b] (v) {V};
+            \node[keyboard key=c,left=1mm of v] (c) {C};
+            \node[keyboard key=f,left=1mm of g] (f) {F};
+            \node[keyboard key=r,left=1mm of t] (r) {R};
+            \node[keyboard key=4,left=1mm of 5] (4) {4};
+
+            \path[keyboard key={return}]
+                ($(backslash.north east) + (1mm, 1mm) $) --
+                ++(0, -7mm) --
+                ++(4mm, 0) --
+                ++(0, 13mm) --
+                ++(-6mm, 0) --
+                ++(0, -6mm) --
+                ($(backslash.north east) + (1mm, 1mm) $);
+            \node[anchor=center] (return) at ($ (rbracket.center) + (7mm, 0) $)
+            {\return};
+
+            \node[legend,label=right:{\scriptsize{}Daumen},fill=thumb,right=3mm of backspace.south east,anchor=north west] (thumb) {};
+            \node[legend,label=right:{\scriptsize{}Zeigefinger},fill=indexfinger,below=1mm of thumb] (index) {};
+            \node[legend,label=right:{\scriptsize{}Mittelfinger},fill=middlefinger,below=1mm of index] (middle) {};
+            \node[legend,label=right:{\scriptsize{}Ringfinger},fill=ringfinger,below=1mm of middle] (ring) {};
+            \node[legend,label=right:{\scriptsize{}Kleiner Finger},fill=pinky,below=1mm of ring] (pinky) {};
+        \end{tikzpicture}
+    }
+}
+
+\definecolor{thumb}{HTML}{CE93D8}
+\definecolor{indexfinger}{HTML}{90CAF9}
+\definecolor{middlefinger}{HTML}{E6EE9C}
+\definecolor{ringfinger}{HTML}{EF9A9A}
+\definecolor{pinky}{HTML}{FFF59D}
+
+\colorlet{thumb}{plot0}
+\colorlet{indexfinger}{plot1}
+\colorlet{middlefinger}{plot2}
+\colorlet{ringfinger}{plot3}
+\colorlet{pinky}{plot4}
+
+\newcommand\phasekeyboardslide[1]{
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=north east,fill=white!90!black,yshift=-16pt] at (current page.north east) {%
+            \phasekeyboard{#1}
+        };
+    \end{tikzpicture}
+}
+
+\newcommand\phasekeyboard[1]{
+    \IfEqCase{#1}{%
+        {1}{\drawkeyboard[scale=0.8,n=indexfinger, h=indexfinger]{}}%
+        {2}{\drawkeyboard[scale=0.8,space=thumb, y=indexfinger, b=indexfinger, g=indexfinger, t=indexfinger, n=indexfinger, h=indexfinger, u=middlefinger, j=middlefinger, m=middlefinger,]{}}%
+        {3}{\drawkeyboard[scale=0.8,y=indexfinger,h=indexfinger,n=indexfinger,u=indexfinger,j=indexfinger,m=indexfinger,i=middlefinger,k=middlefinger,comma=middlefinger,
+        o=ringfinger,l=ringfinger,dot=ringfinger,p=pinky,semi=pinky,slash=pinky,lbracket=pinky,rbracket=pinky,tick=pinky,backslash=pinky,space=thumb,return=pinky,shift=pinky]{}}%
+    }[\PackageError{phasekeyboard}{Undefined option to phasekeyboard: #1}{}]
+}

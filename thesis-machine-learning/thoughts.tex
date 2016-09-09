@@ -1,0 +1,78 @@
+wir, ich man???!!
+
+adagrad zitieren
+http://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf
+
+
+
+
+\subsection{Überwachtes Lernen}
+    \begin{itemize}
+        \item man hat Input, Target-Features, Training Examples (input + target), Testing(nur input)
+        \item Ziel: den Output für unbekannte Inputdaten richtig ermitteln
+        \item generalisieren ist wichtig (unbekannte input-werte)
+        \item Vorgehen: meistens exisitert eine "hypothesis space" aller möglichen Ergebnisse (finit, countable infinite) \cite{poole-artificial-intelligence}
+            --> welche Hypothese wird genommen? best fitting, alle consitenten, probaability-based...
+        \item Evaluieren der Vorhersagen
+            --> verschiedene Evaluierungsmethoden führen zu verschiedenen Vorhersagen
+            --> möglichst numerische Zielwerte
+
+        \begin{itemize}
+            \item sum squared error:
+                    $$ \sum_{x \in X} (p_x - t_x)^2$$
+                    mit
+                    \begin{description}
+                        \item[] X als Menge aller Samples
+                        \item[] $p_x$ als der vorhergesagte Wert
+                        \item[] $t_x$ als tatsächlicher Zielwert
+                    \end{description}
+            \item Confusion Matrix
+            \item Confusion Matrix Picture\todo
+            \begin{itemize}
+                \item TP, FP, FN, FP
+                \item precision, recall, accuracy, ...
+            \end{itemize}
+        \end{itemize}
+
+        \item Problem: Overfitting, Underfitting --> generalisieren
+        \item
+    \end{itemize}
+
+\subsection{Unüberwachtes Lernen}
+    \begin{itemize}
+        \item zb Clustern
+        \item ohne Targetvalues
+        \item
+        \item
+    \end{itemize}
+
+\section{Verbesserung/weiteres Vorgehen}
+\begin{itemize}
+    \item mehr Daten als nur Quaternions verwenden
+\end{itemize}
+
+\section{RNN und CNN}
+Wir begannen mit einem Recurrent NN und stießen auf einige Schwierigkeiten. Eine davon war das bereits beschriebene Problem mit den unbalancierten Daten, welches sich nicht ohne großen Aufwand hätte in den Griff kriegen lassen. Da wir zu Beginn auch noch kein Preprocessing vornahmen, wurde das Netz mit den rohen Daten
+
+ Wir benutzten zu Beginn ein RNN, entschieden uns im Laufe des Projekts jedoch für ein CNN, da es sich für unsere Anwendung als geeigneter erwies. Unter anderem war die Vorverarbeitung deutlich leichter und besser umzusetzten als mit einem RNN.
+
+\section{hidden markov models}
+In verwandten Arbeiten wurde oft auf Hidden Markov Models zurückgegriffen, dagegen spricht für uns die hohe Dimension unserer Daten und die vorangeschrittene Rechenmöglichkeit heutiger Computer, welche es zu den Zeiten, in denen die Projekte mit den HMMs, in dieser Kapazität nicht gab.
+
+\section{Ziele}
+% eher sowas wie eine These: 'wie ist die aufgabe mithilfe von machine learning zu lösen und ist es möglich eine geeignete sache zu finden, die die tastendrücke gut predicten kann'
+
+
+
+hätten HMM nehemn konnen, wollten aber NN nutzen --> früher wegen rechenleistung oft nicht nützlich
+
+\section{unbalancierte Datensätzen}
+
+
+
+In unserem Fall sind viele der Methoden nicht gut anwendbar, da unsere Daten Bewegungsabläufe darstellen, die nur schwer auseinanderzureißen sind. Letzendlich entschieden wir uns für ein resampling der Daten, dies werde ich in \subsecref{cnn} näher erläutern.
+
+\section{sampling}
+Wir haben im Laufe des Projekts verschiedenene Aufteilungen der Zeitschritte verwendet. Zu Beginn waren die Zeitschritte vor und nach einem Tastendruck gleich groß, was zu einer sehr großen Verzögerung der Prädiktionen führte, da die Hälfte der Zeitschritte eines Samples nach dem Tastendruck abgewartet werden mussten, um ein Sample erstellen zu können.
+
+In Phase zwei (\secref{phase2}) haben wir $\frac{3}{4}$ der Zeitschritte vor und lediglich $\frac{1}{4}$ der Zeitschritte nach dem Tastendruck verwendet.

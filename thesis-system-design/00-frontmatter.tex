@@ -1,0 +1,141 @@
+\frontmatter
+\newgeometry{centering,left=2cm,right=2cm,top=2cm,bottom=2cm}
+\begin{titlepage}
+\includegraphics[scale=0.3]{UHH-Logo_2010_Farbe_CMYK.pdf}
+\vspace*{2cm}
+\Large
+\begin{center}{\color{uhhred}\textbf{\so{BACHELORTHESIS}}}
+\vspace*{2.0cm}\\
+{\LARGE \textbf{Prototyp für eine virtuelle Tastatur basierend auf IMUs und maschinellem Lernen - Systementwurf}}
+\vspace*{2.0cm}\\
+vorgelegt von
+\vspace*{0.4cm}\\
+Paul Bienkowski
+\end{center}
+
+\vspace*{3.9cm}
+
+\noindent
+MIN-Fakultät \vspace*{0.4cm} \\
+Fachbereich Informatik \vspace*{0.4cm} \\
+Arbeitsbereich Technische Aspekte Multimodaler Systeme \vspace*{0.4cm} \\
+Studiengang: Informatik \vspace*{0.4cm} \\
+Matrikelnummer: 6415133 \vspace*{0.8cm} \\
+Erstgutachter: Dr.~Norman Hendrich \vspace*{0.4cm} \\
+Zweitgutachter: Florens Wasserfall
+
+\end{titlepage}
+
+\restoregeometry{}
+
+\cleardoublepage
+\hspace{0pt}
+\vfill
+\begin{center}
+    \begin{minipage}{0.7\textwidth}
+        \begin{center}
+            \textsc{Kurzbeschreibung}
+        \end{center}
+        \vspace{-2ex}
+        \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+        Mit dem Projekt ,,Prototyp für eine virtuelle Tastatur basierend auf
+        IMUs und maschinellem Lernen'' entwickeln wir ein System, welches eine
+        Alternative zur klassischen Tastatur als Texteingabemethode für
+        Computersysteme darstellt, indem es die Bewegungen der Hand beim Tippen
+        erfasst und mithilfe maschinellen Lernens wiedererkennt. In dieser
+        Arbeit befasse ich mich mit dem Design dieses Systems, ausgeschlossen
+        hiervon ist das maschinelle Lernen. Weiterhin zeige ich, wie die
+        gesamte Umsetzung der Hardware sowie die Architektur der Software diese
+        Anwendung ermöglicht. Die Befestigung von IMUs (\fremdwort{inertial
+        measurement unit}) an der Hand mittels eines ,,Datenhandschuhs'' erwies
+        sich für diese Anwendung als sehr geeignet. Ich bewerte das
+        Gesamtsystem und komme zu dem Schluss, dass unsere Vision umsetzbar
+        erscheint und das vorgestellte Systemdesign einen geeigneten Weg zu
+        diesem Ziel darstellt.
+    \end{minipage}
+    \\[2cm]
+    \begin{minipage}{0.7\textwidth}
+        \begin{center}
+            \textsc{Abstract}
+        \end{center}
+        \vspace{-2ex}
+        \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+        In our project ,,Prototype for a virtual keyboard based on IMUs and
+        machine learning'' we develop an alternative text input system for
+        computers, capable of replacing a traditional computer keyboard, which
+        records movements made by the hand while typing and recognizes these
+        using a machine learning algorithm. In this work I cover the design of
+        this system, excluding the machine learning part. I show the actual
+        realization of the complete hardware as well as the software
+        architecture supporting the system and evaluate the complete system. I
+        consider the attachment of IMUs (inertial measurement units) to the
+        hand using a ,,data glove'' to be suitable for this task. I conclude
+        that our vision appears feasible, and that the presented system design
+        provides the necessary means to reach our goal.
+    \end{minipage}
+\end{center}
+\vfill
+\hspace{0pt}
+\pagebreak
+
+
+% \setcounter{tocdepth}{1}
+
+\chapter{Inhaltsverzeichnis}
+\makeatletter
+{
+\renewcommand{\baselinestretch}{0.75}\normalsize
+\@starttoc{toc}
+}
+\makeatother
+
+\cleardoublepage
+\chapter{Abkürzungsverzeichnis}
+\vspace{-1cm}
+{
+\renewcommand\arraystretch{1.1}
+\begin{tabularx}{\textwidth}{@{}>{\bfseries}rX@{}}
+    \toprule
+    3D & 3-dimensional \\
+    AR & \fremdwort{augmented reality}, erweiterte Realität \\
+    CNN & \fremdwort{convolutional neural network}, Faltungsnetz\\
+    DoF & \fremdwort{degrees of freedom}, Freiheitsgrade\\
+    EEPROM & \fremdwort{electrically erasable programmable read-only memory} (Speicherbaustein) \\
+    EMG & Elektromyografie (Messung elektrischer Muskelaktivität)\\
+    GND & \fremdwort{ground}, Masse, Bezugspotenzial \\
+    GPIO & \fremdwort{general-purpose input/output} (universell einsetzbarer Kontakt auf einer Leiterplatte)\\
+    HAR & \fremdwort{human activity recognition} (Erkennung menschlicher Aktivitäten aus Sensor\-daten)\\
+    \iic & \fremdwort{Inter-Integrated Circuit} (serieller Datenbus)\\
+    IMU & \fremdwort{inertial measurement unit}, inertiale Messeinheit\\
+    IPC & \fremdwort{inter-process communication}, Interprozesskommunikation\\
+    MEMS & \fremdwort{microelectromechanical system}, mikroelektromechanisches System\\
+    ML & \fremdwort{machine learning}, maschinelles Lernen \\
+    ROS & \fremdwort{Robot Operating System}\\
+    SCL & \fremdwort{signal clock}, Taktleitung bei \iic \\
+    SDA & \fremdwort{signal data}, Datenleitung bei \iic \\
+    SERCOM & \fremdwort{serial communication interface} (in Atmel SAM D Mikrokontrollern)\\
+    PWM & \fremdwort{pulse-width modulation}, Pulsweitenmodulation\\
+    SMD & \fremdwort{surface-mount device}, oberflächenmontiertes Bauelement \\
+    SPI & \fremdwort{Serial Peripheral Interface} (serieller Datenbus) \\
+    UART & \fremdwort{Universal Asynchronous Receiver Transmitter} (Baustein zur Realisierung serieller Schnittstellen) \\
+    UDP & \fremdwort{User Datagram Protocol} (Transportprotokoll) \\
+    VCC & \fremdwort{voltage at the common collector} (Versorgungsspannung) \\
+    VR & \fremdwort{virtual reality}, virtuelle Realität\\
+    YAML & \fremdwort{YAML Ain't Markup Language} (Datenformat) \\
+    \bottomrule
+\end{tabularx}
+}
+\setcounter{table}{0}
+
+% Eigennamen:
+% 24C64WP
+% AK8975
+% ATWINC1500
+% BNO055
+% GNU/Linux
+% InerTouchHand
+% InvenSense
+% (NASA)
+% RViz
+% YAML
+%

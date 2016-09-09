@@ -1,0 +1,292 @@
+\section{Machine Learning}
+
+\subsection{Introduction}
+
+\againframe<4-5>{overview}
+%TODO: more machine learning examples (decision tree, ....)
+%TODO: neuronal nets erklären
+
+%TODO: RNN new graphic
+
+\begin{frame}{Introduction}{Supervised and Unsupervised learning}
+    \begin{table}
+        \def\arraystretch{1.5}
+        \scriptsize
+        \begin{tabular}{r | p{.3\textwidth} | p{.3\textwidth}}
+            & Supervised & Unsupervised \\
+            \hline
+            Learning Data & \tabitem input X &  \tabitem input X\\
+            & \tabitem target values Y & \\
+            What is learned & mapping function $Y \approx f(X)$ & model of data structure\\
+            Examples & \tabitem classification & \tabitem clustering \\
+            & \tabitem regression & \tabitem association \\
+        \end{tabular}
+    \end{table}
+
+    \notes{
+        \item warum machine learning (und nicht vorgegebene gesten erkennen)
+        \item supervised unsupervised
+        \item vorteile/ nachteile
+        \item warum supervised
+    }
+\end{frame}
+
+\subsection{Neural Networks}
+\begin{frame}{Neural Networks}{Strengths and Weaknesses \cite{tu-advantages-disadvantages-neural-networks}}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{Pros}
+            \begin{itemize}
+                \item general-purpose
+                \item many variations
+                \item fast to apply once learned
+                \item able to detect complex relationships
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \textbf{Cons}
+            \begin{itemize}
+                \item requires large dataset
+                \item blackbox\footnotemark[1], difficult to ``understand''
+                \item slow to learn
+                \item can overfit
+            \end{itemize}
+        \end{column}
+    \end{columns}
+
+    \footnotetext[1]{there are some rule-extraction algorithms \cite{web:misconceptions-neural-network}}
+
+
+    \notes{
+        \item \textbf{ARE }general-purpose
+        \item easiliy generate data
+        \item not important how (we dont know movement of fingers)
+        \item tradeoff: complex calculation <-> data needed to learn
+        \item bridge: NN we were interested in
+    }
+\end{frame}
+
+\subsection{Recurrent Neural Networks}
+\begin{frame}{Recurrent Neural Networks}
+    \centering
+    \vfill
+    \begin{figure}
+        \input{../common/recurrent_network.tex}
+        \caption{Simplified Recurrent Network}
+        \label{fig:recurrent-network}
+    \end{figure}
+    \notes{
+        \item sequences of data, not necessarily same length
+        \item dependencies between data
+        \item ie handwriting, language recognition, driverless cars, accident prediction
+        \item forecast
+        \item Aufbau
+        \item Vanishing Gradient Problem
+    }
+\end{frame}
+\subsection{Problems}
+\begin{frame}{Problems}{Vanishing Gradient Problem (\citet{hochreiter-vanishing-gradient})}
+    \vfill\null
+    \begin{block}{Problem}
+        Deep networks require a lot of training
+        \uncover<2->{
+            \begin{itemize}
+                \item during backpropagation, error is lost with each layer
+                \item first layers receive slowest updates
+                \item unrolled RNNs are very deep
+            \end{itemize}
+        }
+    \end{block}
+    \vfill\null
+\end{frame}
+% \begin{frame}{Evaluating Predictions}{Imbalanced Data}
+%     \begin{itemize}
+%         \item 2\% keystrokes $\rightarrow$ positive class
+%         \pause
+%         \item one class predictions
+%         \pause
+%         \item cost function needs to counteract
+%     \end{itemize}
+% \end{frame}
+\begin{frame}{Problems}{Imbalanced Data}
+    \vfill\null
+    \begin{block}{Problem}
+        Only 2\% of our samples are keystrokes (positive class)
+    \end{block}
+    \pause
+    \vfill\null
+    \begin{block}{Possible solutions \citep{web:combat-imbalanced-dataset}}
+        \begin{itemize}
+            \item gather lots of data and train a lot
+            \item resampling
+            \item penalize
+            \item generate synthetic data
+        \end{itemize}
+    \end{block}
+    \vfill\null
+
+    \notes{
+        \item fast!
+        \item Problems with RNN!
+        % \item 8 ways to...
+        \item oversampling, undersampling
+        \item penalize choosing neg class wrongly
+        \item for theoratical math problems
+        \item SOLUTION: not RNN
+        \item \textbf{Look at actual data}
+    }
+\end{frame}
+
+\begin{frame}{Preprocessing and Sampling}
+    \begin{columns}[T]
+        \begin{column}{0.3\textwidth}
+            \begin{figure}
+                \input{../common/preprocessing_flowchart.tex}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.7\textwidth}
+            \only<2>{
+                \begin{figure}
+                    \includegraphics[width=\textwidth]{../common/images/rviz-idle-pose}
+                    \caption{Visualization of relative quaternion rotations, idle pose}
+                \end{figure}
+            }
+            \addtocounter{figure}{1}
+            \only<3>{
+                \begin{figure}
+                \includegraphics[width=\textwidth]{../common/images/rviz-index-finger-bent}
+                    \caption{Visualization of relative quaternion rotations, index finger bent}
+                \end{figure}
+            }
+            \addtocounter{figure}{1}
+
+            \only<4> {
+                \begin{figure}
+                    \input{../common/interpolation.tex}
+                    \label{fig:interpolation}
+                    \caption{Interpolation of the IMU data (simplified)}
+                \end{figure}
+            }
+            \addtocounter{figure}{1}
+
+            \only<5>{
+                \vfill\null
+                \begin{figure}
+                    \centering
+                    \includegraphics[width=0.8\textwidth]{../common/images/plot-samples-1x1}
+                    \caption{Multiple repetitions of the N key stroke, overlayed at the moment of pressing the key (center line); value plotted
+                    is extracted relative pitch angle of right index finger.}
+                \end{figure}
+                \vfill\null
+            }
+            \addtocounter{figure}{1}
+
+            % Sampling
+            % \begin{itemize}
+            %     \item 25 Hz timesteps
+            %     \item 16 timesteps per sample
+            %     \item key stroke in center
+            %     \item 100 samples per epoch
+            % \end{itemize}
+        \end{column}
+    \end{columns}
+
+    \note{
+        \begin{enumerate}
+            \item Quat:
+            \begin{itemize}
+                \item absolute orientation (heading north)
+                \item goal: independent of direction
+                \item solution: use relative quaternions (handbase)
+                \item hand relative to moving average
+                \item $$q_{rel} = q_{abs} \cdot inv(q_{abs,parent})$$
+            \end{itemize}
+            \item interpolate
+            \begin{itemize}
+                \item fixed timesteps
+                \item need all imu data
+            \end{itemize}
+            \item sampling
+            \begin{itemize}
+                \item time 0 : keystroke
+                \item 8 timesteps before + after
+                \item visualization: many keystrokes, angles \textbf{yaw, pitch}
+            \item acceleration (linear acceleration)
+            \item gyroscope (angular velocity (rotate speed))
+            \item (spherical) linear interpolation $\rightarrow$ see next slide
+            \end{itemize}
+        \end{enumerate}
+    }
+\end{frame}
+
+\begin{frame}{Preprocessing and Sampling}{Real Preprocessed Data}
+    \phasekeyboard{1}
+    \vspace{-1em}
+    \begin{figure}
+        \includegraphics[width=0.65\textwidth]{../common/images/plot-samples-2x2}
+        \label{fig:our_data}
+        \caption{Multiple repetitions of N (\emph{left}) and H (\emph{right})
+        key strokes, overlayed at the moment of pressing the key (center line);
+        value plotted is extracted relative pitch (\emph{top})/yaw
+        (\emph{bottom}) angles of right index finger.}
+    \end{figure}
+
+    \notes{
+        \item we tried to visualize what we got
+        \item 1 finger, left: N, right: H
+        \item Quaternion: yaw, pitch
+        \begin{itemize}
+            \item quat is enough, acc and gyro data can be used additionally $\rightarrow$ requires more training
+            \item finger cant roll relative to hand $\rightarrow$ no roll necessary (only hand)
+        \end{itemize}
+        \item actual moment of keystroke!
+        \item hill, valley!
+        \item visibly different --> detectible!!
+    }
+\end{frame}
+
+\subsection{Convolutional Neural Networks}
+\begin{frame}[fragile]{Convolutional Neural Networks}{Convolution and Pooling}
+    \begin{figure}
+        \input{../common/cnn.tex}
+        \label{fig:cnn}
+        \caption{Feature Extraction with CNN}
+    \end{figure}
+
+    \notes{
+        \item convolute (element wise multiplication)
+        \item pool (max)
+        \item filters (50)
+        \item 3 x 3 x 50
+        \item convolute, pool..
+        \item fully connected layer as classifier
+    }
+\end{frame}
+
+\begin{frame}[fragile]{Convolutional Neural Networks}{Our Implementation}
+    \vspace{-1em}
+    \input{../common/our_cnn.tex}
+    \notes{
+        \item each key has same amount of samples
+        \item one sample = one keystroke
+        \item filter randomly initialized
+        \item filter are learned!
+        \item matrix with numbers instead of color scheme
+        \item 2 x convolute and pooling
+        \item MSE: $(1/n)*\sum_{n=0}^{N} (pred - act)^2$
+            % \begin{itemize}
+            %     \item Input: relative angles of quaternions
+            %      \item Hand Imu: relative to last position
+            %     \item 50 3x3 Filter
+            %     \item 2 Iterations
+            %     \item fully connected layer
+            %     \item N units in output layer ($N=count of keys$)
+            %     \item costfunction: Mean Squared Error
+            % \end{itemize}
+    }
+\end{frame}
+\subsection{Evaluating Predictions}
+
+
+\addtocontents{toc}{\newpage}
+

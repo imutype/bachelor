@@ -1,0 +1,70 @@
+\chapter{Fazit} \chaplabel{fazit}
+
+In diesem Kapitel fasse ich meine Arbeit zusammen und gebe einen Ausblick auf
+weitere mögliche Forschungsthemen.
+
+\section{Zusammenfassung}
+
+In der vorliegenden Bachelorarbeit habe ich den Entwurf eines Systems zur
+Aufzeichnung der charakteristischen Handbewegungen beim Tippen sowie der
+dazugehörigen Tastatureingaben erläutert, und die Qualität dieses Entwurfes
+bewertet. Ich bin außerdem auf die Nutzbarkeit eines solchen Systems in
+Verbindung mit einem Verfahren des maschinellen Lernens als Alternative zur
+klassischen Tastatur eingegangen.
+
+Zunächst stellte ich die Kriterien auf, welche das System erfüllen müsse, und
+erläuterte deren Relevanz. Besonderer Fokus lag hierbei auf der Auswahl der für
+die Handbewegung beim Tippen charakterischen Werte, und der Art und Weise, wie
+diese ermittelt werden könnten.
+
+Im State of the Art stellte ich relevante Projekte vor, welche ähnliche und
+verwandte Themengebiete bereits erforscht haben.
+
+Den Kern der Arbeit bildete das Systemdesign. Ich stelle vor, warum wir uns für
+die Verwendung von IMUs als Sensoren im Allgemeinen und für welche genauen
+Hard\-ware\-kom\-po\-nen\-ten im Speziellen wir uns entschieden haben. Außerdem
+behandelte ich die Verbindung der Komponenten, die Befestigung der Sensoren an
+der Hand mithilfe eines Handschuhs, und den Aufbau des dazugehörigen
+Softwaresystems.
+
+Nach einer kleinen Zusammenfassung der Arbeit von \citet{caro}, welche das
+maschinelle Lernen in unserem Projekt behandelt, bewertete ich unseren Ansatz
+in Bezug auf das Systemdesign und die Umsetzung des Hardwareteils. Ich stellte
+aufgetretene Probleme dar, sowie wie mögliche Lösungsansätze für diese.
+
+Zuletzt möchte ich einen kleinen Ausblick geben, welche Möglichkeiten sich aus
+dem vorgestellten System ergeben.
+
+\section{Ausblick}
+
+Wir sehen viele Möglichkeiten für eine Weiterentwicklung dieses Projektes.
+
+Wir können uns vorstellen, dass ein solches System die Entwicklung weg vom
+Layout einer traditionellen Tastatur ermöglicht. Das System könnte
+\emph{online-learning} implementierten, und somit lernen, mit Veränderungen in
+den Bewegungen beim Tippen umzugehen. Verwendet man dann dieses System über
+längere Zeit, wird der Benutzer automatisch seine Bewegungen verändern, und
+irgendwann wird sich ein für ihn optimiertes Muster eingespielt haben, welches
+er verwenden kann, und welches das System versteht. Hier sehen wir großes
+Potential in allen Arten der Kommunikation mit Computern, sei es Texteingabe
+oder andere Steuerung.
+
+Im weiteren sehen wir Möglichkeiten für den Einsatz unseres Systems für die
+Steuerung von Robotern. Hierfür müsste ein entsprechendes kinematisches
+Handmodell benutzt werden, um aus den Sensordaten möglichst akkurat die
+Handkonfiguration abzuleiten. Auch mit ML könnte hier gearbeitet werden --
+komplexe Bewegungen, die der Mensch im Laufe seines Lebens erlernt hat, wie
+etwa das Greifen von Gegenständen, könnten einem Robotor ,,vorgemacht'' werden,
+sodass dieser hieraus ebenfalls lernen kann.
+
+Auch in der Videospielebranche ist eine Anwendung denkbar. Wie wir feststellen
+konnten, ist dort die virtuelle Realität ein aktuelles Thema. Hier hat sich noch
+keine Steuerungsmethode durchsetzen können, und ein Datenhandschuh könnte die
+Brücke schlagen zwischen echter und digitaler Welt, um mühelos und intuitiv mit
+virtuellen Gegenständen interagieren zu können.
+
+Wir haben gezeigt, dass unsere Vision nicht unrealistisch ist, und mit
+entsprechendem Aufwand umsetzbar scheint. Wir sind uns sicher, dass viele
+Menschen von einem auf unseren Prinzipien basierenden Texteingabegerät
+profitieren könnten, und damit besser, effizienter und gesünder mit Computern
+zu interagieren.

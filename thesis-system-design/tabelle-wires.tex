@@ -1,0 +1,21 @@
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}clllll@{}}
+    \toprule
+    Hand & IMU & Platzierung & Bus & Adresse & AD0-Pin \\ \midrule
+    \multirow{6}{*}{\rotatebox[origin=c]{90}{rechts}} &
+      0 & Handrücken        & 2 & 0x28 & low \\
+    & 1 & Daumen            & 2 & 0x29 & floating \\
+    & 2 & Zeigefinger       & 1 & 0x28 & low \\
+    & 3 & Mittelfinger      & 1 & 0x29 & floating \\
+    & 4 & Ringfinger        & 0 & 0x28 & low \\
+    & 5 & Kleiner Finger    & 0 & 0x29 & floating \\
+    \midrule
+    \multirow{6}{*}{\rotatebox[origin=c]{90}{links}} &
+      6  & Handrücken       & 0 & 0x28 & low \\
+    & 7  & Daumen           & 0 & 0x29 & floating \\
+    & 8  & Zeigefinger      & 1 & 0x28 & low \\
+    & 9  & Mittelfinger     & 1 & 0x29 & floating \\
+    & 10 & Ringfinger       & 2 & 0x28 & low \\
+    & 11 & Kleiner Finger   & 2 & 0x29 & floating \\
+    \bottomrule
+\end{tabular}

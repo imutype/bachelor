@@ -1,0 +1,43 @@
+\chapter{Anhang}
+
+\section{Quellenverzeichnis}
+\printbibliography[nottype=online,heading=none,title=none]
+
+\section{Online-Quellen}
+\newrefcontext[sorting=none]
+\printbibliography[type=online,heading=none,title=none,env=bibliographyNUM,resetnumbers]
+
+\section{Abbildungsverzeichnis}
+\makeatletter
+\@starttoc{lof}
+\makeatother
+
+\section{Tabellenverzeichnis}
+\makeatletter
+\@starttoc{lot}
+\makeatother
+
+\section{Datenträger-Verzeichnis}
+
+Dieser Arbeit ist ein digitaler Datenträger beigelegt. Darauf finden Sie die
+Arbeit in digitalem Format, sowie begleitende Materialen:
+
+\begin{itemize}[noitemsep]
+    \item diese Arbeit, sowie die Arbeit von Paul Bienkowski
+    \item den Quelltext der Handschuh-Firmware
+    \item den Quelltext der Softwarekomponenten
+    \item diverse Tools und Skripte zur Datenanalyse
+    \item das Exposee, welches unserem Projekt zugrunde liegt
+    \item die Folien unseres Kolloquiumvortrags (in englischer Sprache)
+    \item Schaltplan und Leiterbahnlayout des ,,Shields''
+    \item Fotos und Filme des fertigen Handschuhs
+\end{itemize}
+
+Nicht enthalten sind aus Speicherplatzgründen die Aufzeichnungen der
+Experimente. Diese können bei Interesse vom Projektverzeichnis auf Github
+heruntergeladen werden:
+
+\begin{center}
+    \url{https://github.com/imutype/bachelor}
+\end{center}
+

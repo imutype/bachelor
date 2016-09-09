@@ -1,0 +1,32 @@
+\begin{tikzpicture}[
+    node distance=5mm,
+    node/.style={
+        flowchart node,
+        minimum width=3em,
+        text width=3em,
+    },
+    steplabel/.style={
+        font=\scriptsize,
+        below,
+        anchor=north,
+    },
+    arrow/.style={
+        out=-30,
+        in=210,
+    },
+]
+    \node[node] (data) {1 @\\16 x 24};
+    \node[node, right=of data] (conv1)  {50@\\$16\times24$};
+    \node[node, right=of conv1] (pool1) {50@\\$8\times12$};
+    \node[node, right=of pool1] (conv2) {50@\\$8\times12$};
+    \node[node, right=of conv2] (pool2) {50@\\$4\times6$};
+    \node[node, right=of pool2] (hidden) {Hidden\\Layer};
+    \node[node, right=of hidden] (out) {Output\\Layer};
+
+    \draw[flowchart arrow,shorten >=2pt] (data.south)   to[arrow] node[steplabel] {Convolution 1} (conv1.south);
+    \draw[flowchart arrow,shorten >=2pt] (conv1.south)  to[arrow] node[steplabel] {Pooling 1} (pool1.south);
+    \draw[flowchart arrow,shorten >=2pt] (pool1.south)  to[arrow] node[steplabel] {Convolution 2} (conv2.south);
+    \draw[flowchart arrow,shorten >=2pt] (conv2.south)  to[arrow] node[steplabel] {Pooling 2} (pool2.south);
+    \draw[flowchart arrow,shorten >=2pt] (pool2.south)  to[arrow] node[steplabel] {Dense 1} (hidden.south);
+    \draw[flowchart arrow,shorten >=2pt] (hidden.south) to[arrow] node[steplabel] {Dense 2} (out.south);
+\end{tikzpicture}

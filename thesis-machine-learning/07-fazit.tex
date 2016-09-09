@@ -1,0 +1,57 @@
+\chapter{Fazit} \chaplabel{fazit}
+
+In den folgenden Absätzen wird das verwendete Verfahren für das Lernen von Bewegungsdaten zur Prädiktion von Tastendrücken zusammengefasst. Zudem wird ein Ausblick auf weitere Vorgehensmöglichkeiten gegeben. Hierbei werden einige Verbesserungsmaßnahmen erläutert, die innerhalb des Projektes bereits nützlich erschienen, jedoch bisher nicht umgesetzt werden konnten.
+
+\section{Zusammenfassung}
+
+% In diesem Projekt haben wir einen Datenhandschuh gebaut, mit dessen Hilfe man die beim Tippen auf einer Tastatur gemachten Hand- und Fingerbewegungen aufzeichnen kann. Die aufgezeichneten Daten können über WLAN oder USB-Kabel an einen Computer geleitet werden.
+
+An dieser Stelle möchte ich auf die zu Beginn der Arbeit in \secref{umfang} festgehaltenen Zielsetzungen zurückkommen:
+
+\begin{displayquote}
+    Definition eines Ansatzes zum Rückschließen auf Tastatureingaben aus den aufgezeichneten Bewegungen unter der Verwendung von Verfahren des maschinellen Lernens.
+\end{displayquote}
+
+Der mit 6 IMUs ausgestattete Datenhandschuh liefert Bewegungsdaten der Hand und der Finger mit einer Datenrate von ungefähr 100 Hz. Zur Verfügung stehen unter anderem die Accelerometerdaten, die Daten des Gyroskops und die bereits von den IMUs fusionierten Quaternionen. Für das Lernen verwenden wir die Quaternionen, welche wir zu der IMU am Handrücken beziehungsweise zum gleitenden Mittelwert relativieren. Da die IMUs zu unterschiedlichen Zeitpunkten neue Daten senden, interpolieren wir diese, um zu festen Zeitschritten die aktuellen Werte zu erhalten.
+
+Mithilfe von maschinellem Lernen waren wir in der Lage, Bewegungen mit bestimmten Tastatureingaben zu verbinden. Das von uns beschriebene CNN erwies sich hierbei geeigneter als die Nutzung eines RNN. Die Vorverarbeitung der Daten ist eine große Hilfe, um das Lernen zu erleichtern. Dennoch ist das Rückschließen auf die Tastatureingabe bisher nur bedingt möglich, der Ansatz scheint jedoch weiter optimierbar zu sein. Weitere Experimente und Anpassungen stehen noch an, um die Bandbreite der erkennbaren Tastendrücke zu erhöhen.
+
+\begin{displayquote}
+    Bewertung der Qualität dieser Rückschlüsse und der Nutzbarkeit eines solchen Verfahrens als Alternative zur klassischen Tastatur.
+\end{displayquote}
+
+Innerhalb verschiedener Experimente haben wir evaluiert, in wie weit das Tippen unter Verwendung des Datenhandschuhs möglich ist. Hierbei spielte vor allem die Genauigkeit der Erkennung der Tastendrücke eine Rolle.
+
+In dieser Arbeit waren wir in der Lage 2 Tasten mit einer Genauigkeit von 97\% zu unterscheiden. Das Tippen von 3 Fingern und 10 Tasten erreichte eine Genauigkeit von 85\%.
+
+Wir stellten fest, dass es sehr schwierig ist, die Tasten zu unterscheiden, auf denen die Finger ruhen. Die Verwendung einer Tastatur mit größerem Tastenanschlagsweg könnte den erhofften Vorteil erbringen. Außerdem könnte die Verwendung der Beschleunigungsdaten vom Accelerometer das Differenzieren dieser Tasten erleichtern.
+
+Obwohl die Genauigkeit bisher nicht optimal ist und es zudem bisher nicht möglich ist, fließend zu schreiben, ist dieses Projekt in meinen Augen erfolgreich. Wir konnten zeigen, dass der Datenhandschuh brauchbare Daten liefert, welche das verwendete CNN in die Lage versetzt, die Fingerbewegungen zu lernen. Die Quaternionen reichen aus, um einige Tasten zu differenzieren. Mit entsprechendem Aufwand halte ich es mithilfe unseres Ansatzes für möglich, eine vergleichbare Eingabemethode zu Tastaturen zu schaffen.
+
+\section{Ausblick}
+
+Da der Datenhandschuh nur ein Prototyp ist, sind Verbesserungen nicht nur möglich, sondern auch nötig.
+
+In unserem Projekt nutzten wir zwei verschiedene Arten von neuronalen Netzen. Es wäre jedoch auch denkbar, einen anderen ML-Algorithmus zu verwenden. Ein Beispiel wäre KNN (\emph{k-nearest-neighbours}). In \figref{graphs-average} wird deutlich, dass die Graphen für die verschiedenen Tasten stets unterschiedlich sind. Es wäre also möglich, Daten demjenigen Graphen zuzuordnen, welcher am ähnlichsten ist. Denkbar wäre, hierfür ein zweistufiges Modell zu nutzen. Im ersten Schritt könnten Tastendrücke und die dabei beteiligten Finger erkannt werden. Im folgenden Schritt würde dann ermittelt werden, um welche Taste es sich handelt. Für den zweiten Schritt könnte man alternativ zum KNN auch ein Hidden Markov Model verwenden \citep[wie in][]{nasa-joystick-keyboard}.
+
+Neben dem Austauschen des kompletten ML-Algorithmus wäre es auch möglich, Verbesserungen an der bestehenden Konfiguration vorzunehmen.
+Eine naheliegende Verbesserung wäre, die Verzögerung durch die Sampling-Methode zu verringern. Die Tastendrücke liegen zur Zeit in der Mitte der Samples, dadurch ist es nötig, relativ viele Zeitschritte nach einem Tastendruck abzuwarten, um ein vollständiges Sample zu erhalten.
+
+Zudem könnten auch mehr Daten von dem Datenhandschuh genutzt werden. Bisher haben wir lediglich die Quaternionen verwendet, mit dem Hinzunehmen der Accelerometer- und Gyroskopdaten ist es eventuell möglich, eine genauere Prädiktion der Tasten zu erzielen. Hierfür sollte die Frequenz der festen Zeitschritte von 25 Hz auf 100 Hz erhöht werden, entsprechend der Frequenz in der die IMUs die Daten senden. Dies ist nötig, da sich die Accelerometerdaten sehr schnell verändern.
+
+Ein Problem mit den Sensordaten ist bisher, dass die IMU im Fusionsmodus die Messung einer Rotationsgeschwindigkeit über \SI{+-500}{\degree\per\second} nicht ermöglicht. Um eine schnellere Rotationsgeschwindigkeiten messen zu können, wäre es nötig, das Fusionieren der Quaternionen eigenständig vorzunehmen. Dies erwies sich als umständlich, da dafür eine manuelle Kalibrierung notwendig wäre. Man könnte auch versuchen, die durch die eingeschränkte Messung enstehende Abweichung der Ausrichtung in der Vorverarbeitung zu erkennen und zu korrigieren.
+
+Eventuell wird es beim Lernen von mehr Tasten als bisher auch nötig sein, die Beschleunigung der Handbasis-IMU zu integrieren, um die Position der Hände über der Tastatur in den Algorithmus einfließen zu lassen.
+Um nicht zu viele Daten verarbeiten zu müssen, wird es sinnvoll sein, ein kinematisches Modell der Hand zu nutzen, um die Dimensionen der Daten reduzieren zu können.
+
+Ein weiterer Verbesserungs- beziehungsweise Implementationsbedarf besteht beim Online-Learning, welches wir bisher leider außer Acht lassen mussten. Online-Learning bedeutet, dass der Algorithmus während der Anwendung weiterhin lernt, um mit Veränderungen der Muster umgehen zu können. In unserem Fall bedeutet dies zum Beispiel das langsame Wegbewegen der Hände von der Tastatur. Für das Online-Learning müssen geeignete Methoden gefunden werden, das überwachte Lernen fortzusetzen. Es ist dann jedoch nötig, eine Methode zu finden, welche die Daten labelt. Das Labeln der Daten war dank der Tastatureingabe bisher kein großes Problem, da durch die Tastatur ein korrekter Zielwert einfach erhalten werden konnte. Ohne diese Rückmeldung muss das Netz gut genug sein, um leichte Abweichungen in der Bewegung trotzdem der richtigen Taste zuordnen zu können. Diese Abweichungen müssen dann nach und nach gelernt und gefestigt werden um von dort aus weitere Veränderungen der Bewegungen lernen zu können.
+
+Nicht nur für das Online-Learning wäre es sinnvoll eine neue Label-Methode zu nutzen. Um den Datenhandschuh auch für Gestenerkennung nutzen zu können, wäre es nötig, die aufgenommenen Daten den unterschiedlichen Gesten zuordnen zu können.
+
+Bisher haben wir mit dem Handschuh lediglich Tastendrücke von der mittleren Tastenreihe aus durchgeführt. Für ein flüssiges Schreiben ist es unabdingbar, eine Taste unmittelbar nach dem vorangegangen Tastendruck zu tippen. Da es sehr viele Buchstabenkombinationen gibt, entstehen viele verschiedene Bewegungsabläufe für dieselbe Taste, wodurch das Lernen komplexer wird.
+
+Für das Schreiben langer Texte mithilfe des Datenhandschuhs wäre es von Vorteil, wenn es eine Wortprädiktion und -korrektur gäbe. Dies ist bereits  von Smartphone-Tastaturen bekannt. Eine solche Funktion würde das Tippen stark vereinfachen, da unsauber ausgeführte Fingerbewegungen, aber auch Ungenauigkeiten bei der Tastenerkennung des Klassifikators, durch eine Wortvorhersage automatisch verbessert werden könnten. Diese Funktion sollte jedoch ein- und ausschaltbar sein, um in Situationen, in welchen eine solche Vorhersage störend sein könnte, ohne Verbesserungsvorschläge tippen zu können. Eine solche Situation ist zum Beispiel das Programmieren, da hierbei viele Sonderzeichen und Wörter ohne die grammatikalischen Regeln einer natürlichen Sprache hintereinandergereiht werden.
+
+Auch beim Datenhandschuh lassen sich einige Verbesserungen vornehmen. Beispielsweise ist die Verkabelung durch die freien Lötstellen recht anfällig, und bei den erforderlichen Bewegungen der Hand gehen diese Verbindungen teilweise kaputt. Außerdem ist die Mehrteiligkeit des Handschuhs recht unpraktisch, das Anziehen dauert lange und die einzelnen Komponenten sind kaum für unterschiedliche Handtypen geeignet, da zum Beispiel die IMUs auf Ringen aus elastischem Band befestigt sind, welche bei schmalen Fingern leicht verrutschen. Außerdem könnte die Datenqualität noch deutlich verbessert werden. Auf diese und weitere mögliche Verbesserungen des Datenhandschuhs wird in der Arbeit von Paul \citet{paul} detaillierter eingegangen.
+
+Mit den aufgelisteten Verbesserungen könnte der Datenhandschuh eine gute alternative Eingabemethode zur Tastatur sein. Weitere Anwendungsgebiete wären ebenfalls denkbar, wie zum Beispiel das Trainieren einer Roboterhand. Ein Proband könnte den Handschuh anziehen und bestimmte Handbewegungen, wie zum Beispiel das Greifen nach einem Gegenstand, aufzeichnen. Ein ML-Algorithmus könnte diese Bewegungen lernen und für die Roboterhand adaptieren. Die vom Menschen schon im Kleinkindalter gelernten Bewegungsabläufe sind sehr schwer in Formeln zu fassen und durch die Vorführung mithilfe des Datenhandschuhs könnte das Muskelgedächtnis des Menschen die Aufgabe des Lehrens übernehmen.

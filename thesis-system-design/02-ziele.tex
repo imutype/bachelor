@@ -1,0 +1,153 @@
+\chapter{Ziele} \chaplabel{ziele}
+
+In diesem Kapitel zeige ich die notwendigen Eigenschaften des zu entwerfenden
+Systems auf und begründe ihre Relevanz.
+
+\section{Kompatibilität zur klassischen Tastatur}
+
+Damit das Produkt eine taugliche Alternative zu einer klassischen Tastatur
+darstellt, muss es mindestens die gleiche Anzahl Eingaben wie diese
+unterscheiden können.  Ebenso soll es Hilfstasten für Tastenkombinationen
+erkennen, sodass bestehende Software nicht angepasst werden muss. Wir möchten
+ausdrücklich mehr erreichen als nur eine beschränkte Eingabe zu erkennen, etwa
+limitiert auf die 26 Zeichen des lateinischen Alphabets.
+
+Wir versuchen also, Tastenanschläge der Tastatur zu emulieren. Hierbei geht es
+uns nicht um die Wirkung, die diese Taste softwareseitig auslöst. Zum Beispiel
+wird das Tastaturlayout von unserem System nicht beachtet -- stattdessen
+arbeiten wir wie eine normale USB-Tastatur mit Tastencodes, welche vom System
+dann einer beliebigen Wirkung zugewiesen werden können. Dies bedeutet im
+Besonderen, dass wir zwischen Groß- und Kleinbuchstaben nicht unterscheiden.
+Diese Unterscheidung findet erst im Betriebssystem statt, durch Interpretation
+der Shift-Taste.
+
+\section{Verwendung von maschinellem Lernen}
+
+Wie bereits in der Zielsetzung des Projektes festgehalten, soll das System
+Algorithmen des maschinellen Lernens (ML) verwenden, um Rückschlüsse auf die
+gemachten Tastatureingaben zu ziehen. Dies ist keine willkürliche Entscheidung.
+Wir halten dieses Projekt für einen geeigneten Anwendungsfall für maschinelles
+Lernen.
+
+Ein Grund dafür ist, dass ein ML-Algorithmus viele Lerndaten benötigt, um darin
+Muster zu erkennen und zu erlernen und danach selbstständig Vorhersagen treffen
+zu können. Im Fall von überwachtem ML benötigt man zu den Eingabedaten auch die
+tatsächlichen Zielwerte (\emph{ground truth}). Bei unserer Anwendung sind wir
+in der Lage, eine große Menge Lerndaten mit Zielwerten relativ einfach
+aufzuzeichnen, da wir die Handbewegung beim Tippen auf einer normalen Tastatur
+zusammen mit den tatsächlichen Tastenanschlägen ermitteln können.
+
+Außerdem sind ML-Algorithmen in der Lage, komplexe Zusammenhänge implizit zu
+lernen und wiederzuerkennen. Dazu gehören auch solche Zusammenhänge, die ein
+Programmierer bei der Entwicklung eines traditionellen Ansatzes nicht beachten
+würde. Ein Beispiel dafür ist die folgende Eigenart, welche ich an mir selbst
+beim Tippen beobachten konnte: Wenn ich den Buchstaben
+\keyboard{B}\footnote{Wir verwenden für die gesamte Arbeit Tastaturen mit
+US-Layout. Die Testperson bin ich selbst -- es sei angemerkt, dass ich zwar aus
+dem Muskelgedächtnis tippe, dies jedoch kein sauberes 10-Finger-System ist.
+Stattdessen ruhen die Finger meiner rechten Hand auf den Tasten HJKL, also eine
+Taste nach links verrutscht. Diese Erklärung ist notwendig zum Verständnis der
+später gezeigten Graphen und Experimente.} tippe, verwende ich dafür den
+Zeigefinger der rechten Hand.  Zur gleichen Zeit bewegt sich mein linker
+Zeigefinger ein Stück nach links oben, um Platz zu machen. Dies ist ein
+Zusammenhang, der in meinen Bewegungsdaten erkennbar ist, und der für mich
+persönlich zutrifft. Ein ML-Algorithmus dürfte in der Lage sein, diesen
+Zusammenhang zu erkennen -- ein Programmierer hätte dies jedoch vermutlich
+nicht als Regel im klassischen Algorithmus hinterlegt.
+
+\section{Messung charakteristischer Werte}
+
+Die Hardwarekomponenten des Systems müssen, damit das ML-Verfahren die
+unterschiedlichen Bewegungen zuordnen kann, die charakterischen Werte für die
+Bewegungen des Handapparates beim Tippen messen können. Im folgenden erläutere
+ich die dafür relevanten Aspekte.
+
+\subsection{Auswahl der Messwerte}
+
+Zunächst soll die innere Konfiguration der Hand gemessen werden, also die
+Position der Finger relativ zueinander und zu der gesamten Hand. Das liegt
+daran, dass die Finger eines geübten Tastaturbenutzers die meiste Arbeit
+erledigen. Je weniger langsame Handbewegungen nötig sind, desto schneller und
+effizienter ist das Tippen.
+
+Bei den Fingerbewegungen kann der Rollwinkel (Drehung um die Längsachse)
+vernachlässigt werden, da die menschliche Hand zu dieser Bewegung nicht in der
+Lage ist. Vertikale und horizontale Bewegungen sind jedoch sehr wohl möglich
+und sollen erkannt werden, um benachbarte Tasten unterscheiden zu können.
+
+Zudem müssen für einige Tastenanschläge die Hände bewegt werden, etwa um die
+oberen Tastenreihen (Ziffern und Funktionstasten) oder weiter außen oder innen
+liegende Tasten zu erreichen. Daher sollen auch Informationen über die
+Handbasis verfügbar sein, etwa die Position, Beschleunigung oder Orientierung.
+
+\subsection{Genauigkeit}
+
+Die Tasten einer Tastatur sind relativ klein. Um unter zwei benachbarten Tasten
+unterscheiden zu können, muss die Genaugkeit der gelieferten Daten hoch genug
+sein. Aufgrund der vielen möglichen messbaren Größen können wir bezüglich der
+Genaugkeit keine quantitativen Anforderungen stellen. Ich werden jedoch im
+Analyseteil auf diese Fragestellung eingehen, und die ermittelten Daten darauf
+untersuchen, ob benachbarte Tasten daran unterscheidbar sind.
+
+\subsection{Datenrate}
+
+Geübte Benutzer können etwa 200 bis 400 Anschläge pro Minute\footnote{vgl.
+Statistik unter~\cite{typingspeed}} erreichen. Dies entspricht im Durchschnitt
+einem Intervall \SI{150}{ms} bis \SI{300}{ms} pro Anschlag. Aus diesem Grund
+muss die Datenrate ausreichend sein, um die komplette Bewegung zu erkennen.
+Sowohl die Hardware- als auch die Softwarekomponenten müssen diese Datenrate
+unterstützen. Wir haben uns eine Datenrate von \SI{100}{Hz} zum Ziel gesetzt,
+erhalten also mindestens 15 Datenpunkte für jeden Tastenanschlag eines geübten
+Benutzers.
+
+\section{Geringe motorische Einschränkung}
+
+Eine geringe motorische Einschränkung des Benutzers durch die Sensoren ist von
+zweierlei Nutzen. Zunächst soll der Proband bei der Aufzeichnung der Lerndaten
+sowie bei der tatsächlichen Nutzung die gleichen Bewegungen aus dem
+Muskelgedächtnis abspielen. Dazu ist es notwendig, dass er in der Lage ist,
+eben diese Bewegungen auch durchzuführen.
+
+Auch bei der späteren Anwendung ist eine Einschränkung des Benutzers durch die
+Sensoren nicht erwünscht. Ein alltagstaugliches Gerät sollte flexibel und leicht
+sein, insbesondere wenn es die Befestigung von Hardware an der Hand erfordert.
+
+\section{Haltungsunabhängigkeit}
+
+Um bessere ergonomische Eigenschaften gewährleisten zu können, sollten die
+Handbewegungen in jeder Körperhaltung durchgeführt werden können, zum Beispiel
+im Stehen, Sitzen oder Liegen. Das System soll unabhängig von dieser
+Körperhaltung die Eingaben erkennen können. Zum Tippen sollte auch keine
+bestimmte Armhaltung vorgeschrieben sein. Müsste man beispielsweise die Arme
+ausstrecken, um im Stehen zu tippen, würden diese schnell ermüden.  In diesem
+Falle ist es eher wünschenswert, die Arme locker an den Seiten herunterhängen
+zu lassen, und nur mit der Bewegung der Finger tippen zu können.
+
+Zudem soll das System nicht ortsgebunden sondern mobil einsetzbar sein.
+Vorstellbar wäre die Verwendung mit einem mobilen Endgerät (z.B. Smartphone)
+oder künftig sogar ,,deviceless'', also nur in Kombination mit peripheren
+Geräten wie einer AR-Brille.  Wünschenswert bei Verwendung von Hardware an
+der Hand wäre die Möglichkeit, diese kabellos betreiben zu können.
+
+\section{Prototyping-geeignete Software}
+
+Der Entwurf des Systems beinhaltet nicht nur Hardwarekomponenten, sondern auch
+die Architektur der verwendeten Software. Diese muss nicht nur die funktionalen
+Anforderungen erfüllen, sondern soll in einer Weise strukturiert sein, die
+unterschiedliche, transparente und wiederholbare Experimente erlaubt, und somit
+gut für Prototyping geeignet ist.
+
+\section{Ausbaufähigkeit zu marktfähigem Produkt}
+
+Damit das entworfene System nicht nur ein Prototyp bleibt, sondern irgendwann
+eine echte Alternative zur Tastatur für viele Benutzer werden kann, muss es von
+vornherein darauf ausgelegt sein, zu einem marktfähigen Produkt entwickelbar zu
+sein. Dafür sollten die Hardwarebausteine günstig sein, insbesondere in
+Massenproduktion. Das fertige Produkt muss robust und alltagstauglich sein.
+
+Es wäre wünschenswert, sowohl die Hardware als auch die Software soweit
+generalisieren zu können, dass ein neuer Benutzer diese nicht aufwendig anpassen
+muss. Wie in \secref{vereinfachungen} erwähnt lassen wir diesen Gesichtspunkt
+in unserer Arbeit jedoch vorerst außer Acht.
+
+% vim: tw=79

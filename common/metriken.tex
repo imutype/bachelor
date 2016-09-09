@@ -1,0 +1,21 @@
+{
+\renewcommand*{\arraystretch}{1.6}
+\begin{tabular}{@{}llp{8cm}@{}}
+    \toprule
+    \textbf{Metrik} & \textbf{Formel} & \textbf{Fragestellung} \\
+    \midrule
+    Accuracy
+        & $\frac{\text{TP} + \text{TN}}{n}$
+        & Anteil korrekter Vorhersagen \\
+    Recall
+        & $\frac{\text{TP}}{TP + FN}$
+        & Anteil korrekter Vorhersagen in der positiven Klasse \\
+    Precision
+        & $\frac{\text{TP}}{TP + FP}$
+        & Anteil der als positiv vorhergesehenen Samples, der korrekt war \\
+    F-Score
+        & $\frac{2 \text{ PR}}{P + R}$
+        & harmonisches Mittel aus Recall (R) und Precision (P), \citet{f-measure} \\
+    \bottomrule
+\end{tabular}
+}

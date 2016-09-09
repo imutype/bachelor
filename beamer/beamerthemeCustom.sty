@@ -1,0 +1,75 @@
+\mode<presentation>
+
+\useoutertheme{infolines}
+
+\useoutertheme[subsection=false]{miniframes}
+%\useoutertheme{split}
+\useinnertheme{rectangles}
+\usecolortheme{beaver}
+
+\usepackage{etoolbox}
+% \makeatletter
+% \patchcmd{\slideentry}{\advance\beamer@tempdim by -.05cm}{\advance\beamer@tempdim by\beamer@vboxoffset\advance\beamer@tempdim by\beamer@boxsize\advance\beamer@tempdim by 1.2\pgflinewidth}{}{}
+% \patchcmd{\slideentry}{\kern\beamer@tempdim}{\advance\beamer@tempdim by 2pt\advance\beamer@tempdim by\wd\beamer@sectionbox\kern\beamer@tempdim}{}{}
+% \makeatother
+
+\setbeamerfont{block title}{size={}}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\definecolor{primary}{RGB}{226,0,26}
+\definecolor{secondary}{RGB}{78,78,78}
+
+\setbeamercolor{palette primary}{use=primary}
+\setbeamercolor{palette secondary}{use=secondary}
+
+\setbeamerfont{title}{size=\large}
+\setbeamercolor{title}{fg=primary,bg=white}
+\setbeamercolor{itemize item}{fg=primary}
+\setbeamercolor{itemize subitem}{fg=primary}
+\setbeamercolor{itemize subsubitem}{fg=primary}
+\setbeamercolor{item projected}{fg=white,bg=primary}
+%\useinnertheme{circles}
+
+\setbeamercolor{enumerate item}{fg=primary,bg=primary}
+\setbeamercolor{enumerate subitem}{fg=primary,bg=primary}
+\setbeamercolor{enumerate subsubitem}{fg=primary,bg=primary}
+\setbeamercolor{enumerate mini template}{fg=primary,bg=primary}
+
+\setbeamercolor{section number projected}{bg=primary}
+\setbeamercolor{subsection number projected}{bg=primary}
+\setbeamercolor{subsubsection number projected}{bg=primary}
+\setbeamercolor{section in head/foot}{fg=white,bg=secondary}
+
+\setbeamercolor{subsection in head/foot}{fg=black,bg=white!90!}
+\setbeamercolor{frametitle}{fg=black,bg=white!95!black}
+%\setbeamercolor{upper separation line head}{bg=primary}
+%\setbeamercolor{middle separation line head}{bg=primary}
+%\setbeamercolor{lower separation line head}{bg=primary}
+\setbeamercolor{block title}{fg=white,bg=primary}
+\setbeamercolor{block body}{fg=black,bg=white!90!black}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+\setbeamercolor{bibliography entry author}{fg=secondary}
+\setbeamercolor{bibliography entry title}{fg=primary}
+\setbeamercolor{bibliography entry location}{fg=secondary}
+\setbeamercolor{bibliography entry note}{fg=secondary!50!white}
+\setbeamercolor{bibliography item}{fg=primary}
+\setbeamertemplate{bibliography item}{\insertbiblabel\tiny}
+
+\setbeamerfont{caption}{size=\scriptsize}
+\setbeamercolor{caption name}{fg=primary}
+\setbeamercolor{caption}{fg=secondary}
+\setbeamertemplate{caption}[numbered]
+
+% \setbeamercovered{transparent}
+% \usefonttheme{structurebold}
+
+\mode<all>
+
+\newcommand{\notes}[1]{\note{%
+    \begin{itemize}
+        #1
+    \end{itemize}
+}}

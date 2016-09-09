@@ -1,0 +1,14 @@
+imu_ids: [0, 1, 2, 3, 4, 5]
+key_codes: [35, 49] # h, n
+
+network_type: cnn2d
+cost_function: mse
+sampling_mode: quat
+sampling_rate: 25
+sequence_length: 16
+
+convolution_filter_count: 50
+convolution_filter_size: [3, 3]
+convolution_iterations: 2
+convolution_dense_layer_units: [10]
+convolution_deep_filters: true

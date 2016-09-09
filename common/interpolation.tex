@@ -1,0 +1,66 @@
+\begin{tikzpicture}[
+    curve/.style={
+        mark=x,
+        mark options={thick},
+        mark size=3pt,
+        thick,
+    },
+    dot/.style={
+        minimum width=4pt,
+        minimum height=4pt,
+        inner sep=0pt,
+        circle,
+        draw=secondary,
+        thick,
+    },
+]
+    \begin{axis}[
+        width=12cm,
+        height=6cm,
+        axis x line=center,
+        axis y line=center,
+        xmin=2, xmax=7,
+        ymin=2, ymax=5,
+        xlabel=Zeit, xtick style={draw=none}, xtick=\empty,
+        ylabel=Wert, ytick style={draw=none}, ytick=\empty,
+        xlabel near ticks,
+        ylabel near ticks,
+        legend columns=-1,
+        legend style={
+            at={(0.5,1.1)},
+            anchor=south,
+            draw=none,
+            font=\scriptsize\bfseries,
+            text width=3em,
+            text height=1.5ex,
+            text depth=.5ex,
+        },
+    ]
+        \addplot[curve,name path=imu-1,color=plot0] plot coordinates {
+(-1.90, 1.78) (-1.40, 2.09) (-0.90, 2.32) (-0.40, 2.45) (0.10, 2.58) (0.60, 2.87) (1.10, 3.01) (1.60, 3.01) (2.10, 2.89) (2.60, 2.96) (3.10, 3.05) (3.60, 2.97) (4.10, 2.81) (4.60, 2.77) (5.10, 2.72) (5.60, 2.64) (6.10, 2.49) (6.60, 2.48) (7.10, 2.67) (7.60, 2.81) (8.10, 3.10) (8.60, 3.31) (9.10, 3.48) (9.60, 3.70) (10.10, 3.88) (10.60, 4.05) (11.10, 4.35) (11.60, 4.50)
+        };
+        \addlegendentry{IMU~1}
+
+        \addplot[curve,name path=imu-2,primary,color=plot1] plot coordinates {
+(-1.68, 4.84) (-1.18, 4.89) (-0.68, 4.82) (-0.18, 4.62) (0.32, 4.46) (0.82, 4.13) (1.32, 3.88) (1.82, 3.81) (2.32, 3.71) (2.82, 3.49) (3.32, 3.45) (3.82, 3.24) (4.32, 3.19) (4.82, 3.20) (5.32, 3.24) (5.82, 3.09) (6.32, 2.77) (6.82, 2.62) (7.32, 2.39) (7.82, 2.26) (8.32, 2.32) (8.82, 2.32) (9.32, 2.47) (9.82, 2.55) (10.32, 2.47) (10.82, 2.23) (11.32, 1.92) (11.82, 1.46)
+        };
+        \addlegendentry{IMU~2}
+
+
+        \foreach \x/\s [count=\i] in {3.5/2-, 1.5/3-, 5.5/3-, 7.5/3-} {
+            \addplot [secondary, name path=line-\i] coordinates{(\x, -0.5) (\x, 5)};
+
+            \path[name intersections={of=imu-1 and line-\i,by=I-\i}];
+            \node[dot] at (I-\i) {};
+
+            \path[name intersections={of=imu-2 and line-\i,by=J-\i}];
+            \node[dot] at (J-\i) {};
+        }
+
+        \draw[secondary,thick,<->]
+            (axis cs:3.5,4.6)
+                -- node[above] {\tiny{}fester Zeitschritt}
+                node[below] {\tiny{}($25$ Hz)}
+                (axis cs:5.5,4.6);
+    \end{axis}
+\end{tikzpicture}
